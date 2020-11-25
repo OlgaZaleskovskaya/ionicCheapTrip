@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,8 +6,13 @@ import { Component } from '@angular/core';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
+  isDark: boolean;
 
   constructor() {}
+  
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
 }

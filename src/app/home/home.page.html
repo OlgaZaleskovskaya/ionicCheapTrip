@@ -1,20 +1,35 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<mat-toolbar [class.dark]="isDark">
+  <div class="logo">
+    <img src="../../assets/images/cheapTrip.png">
   </div>
-</ion-content>
+  <div class="menu">
+    <button mat-button [matMenuTriggerFor]="belowMenu">MUNU)<span class="material-icons">
+        keyboard_arrow_down
+      </span></button>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+    <button mat-button>MENU1</button>
+    <button mat-button>MENU2</button>
+    <button mat-button>MENU3</button>
+  </div>
+  <div class="buttons">
+    <button mat-button type="button">LOGIN</button>
+    <button mat-button type="button" class="start">START</button>
+  </div>
+</mat-toolbar>
+<div class="main">
+  <div class="message">
+    <div>
+      <p>LOREM ISPUM</p>
+      <h1>Lorem ipsum dolor sit amet</h1>
+      <p>Lorem ipsum dolor sit amet, at eos impedit.</p> 
+       <p>Usu accumsan oporteat suavitate.</p>
+        <button mat-button type="button" class="start">START</button>
+    </div>
+  </div>
+  <div class="picture">
+    <img src="../../assets/images/computer4.png">
+  </div>
+</div>
