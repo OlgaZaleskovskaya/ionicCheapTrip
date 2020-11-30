@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
 import { ICity } from "../places.model";
 
 import { PlacesService } from "../places.service";
@@ -9,21 +10,31 @@ import { PlacesService } from "../places.service";
   templateUrl: "./discover.page.html",
   styleUrls: ["./discover.page.scss"],
 })
-export class DiscoverPage implements OnInit {
+export class DiscoverPage implements OnInit, OnDestroy {
   //form: FormGroup;
   startPointCitiesAvailable: boolean = false;
   endPointCitiesAvailable: boolean = false;
   startPointCities: ICity[] = [];
   endPointCities: ICity[] = [];
+  cleanDataSubscription: Subscription;
 
   ignoreNextStartPointChange: boolean = false;
   ignoreNextEndPointChange: boolean = false;
   startPointCity: ICity = { id: -1, name: "" };
   endPointCity: ICity = { id: -1, name: "" };
+
   constructor(private placesSrv: PlacesService) {}
 
   ngOnInit() {
-   this.placesSrv.getAllCities();
+    this.placesSrv.getAllCities();
+    this.cleanDataSubscription = this.placesSrv.cleanPathsSubj$.subscribe(
+      (_res) => {
+        this.onClearAll();
+      }
+    );
+  }
+  ngOnDestroy(): void {
+    this.cleanDataSubscription.unsubscribe();
   }
 
   onSubmit() {}
@@ -50,7 +61,6 @@ export class DiscoverPage implements OnInit {
   }
 
   onEndPointSearchChange(event: any) {
-    console.log('end');
     const substring = event.target.value;
     if (this.ignoreNextEndPointChange) {
       this.ignoreNextEndPointChange = false;
@@ -59,7 +69,7 @@ export class DiscoverPage implements OnInit {
     }
     this.placesSrv.getEndPointAutocomplete(substring).subscribe((cities) => {
       this.endPointCities = cities;
-      console.log('cities', cities);
+
       if (cities.length > 0) {
         this.endPointCitiesAvailable = true;
       } else {
@@ -67,8 +77,6 @@ export class DiscoverPage implements OnInit {
       }
     });
   }
-
-
 
   startPointCitySelected(city: any): void {
     this.startPointCity = city;
@@ -80,9 +88,27 @@ export class DiscoverPage implements OnInit {
     this.ignoreNextEndPointChange = true;
   }
 
-
-  searchPath(){
+  searchPath() {
     this.placesSrv.getPaths(this.startPointCity, this.endPointCity);
+  }
 
+  onClearStartPoint() {
+    this.startPointCity = { id: -1, name: "" };
+  this.ignoreNextStartPointChange = true;
+    this.startPointCitiesAvailable = false;
+    this.startPointCities = [];
+  }
+
+  onClearEndPoint() {
+    this.endPointCity = { id: -1, name: "" };
+    this.ignoreNextEndPointChange = true;
+    this.endPointCitiesAvailable = false;
+    this.endPointCities = [];
+  }
+
+  onClearAll() {
+    console.log("on clear all");
+    this.onClearStartPoint();
+    this.onClearEndPoint();
   }
 }

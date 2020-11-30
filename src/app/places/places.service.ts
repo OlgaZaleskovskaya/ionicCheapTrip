@@ -1,8 +1,27 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { AlertController } from "@ionic/angular";
 import { BehaviorSubject, Observable, of, Subject, Subscription } from "rxjs";
-import { take } from "rxjs/operators";
+import { map, take } from "rxjs/operators";
 import { HttpService } from "../http.service";
-import { ICity } from "./places.model";
+import {
+  ICity,
+  IFetchedPathDetails,
+  IFetchedPaths,
+  TransportationType,
+} from "./places.model";
+
+const iconMap = new Map();
+iconMap.set("Ground route", "../../assets/images/groundWay.png");
+iconMap.set("Mixed route", "../../assets/images/mixedWay.png");
+iconMap.set("Flying route", "../../assets/images/flightWay.png");
+
+const transportIconMap = new Map();
+transportIconMap.set("Bus", "../../assets/images/transport/bus.png");
+transportIconMap.set("Train", "../../assets/images/transport/train.png");
+transportIconMap.set("Ride Share", "../../assets/images/transport/rideShare.png");
+transportIconMap.set("Taxi", "../../assets/images/transport/taxi.png");
+transportIconMap.set("Flight", "../../assets/images/transport/flight.png");
 
 @Injectable({
   providedIn: "root",
@@ -11,11 +30,19 @@ export class PlacesService {
   allCities: ICity[] = [];
   endPointCities: ICity[];
   citiesSub: Subscription;
-  paths: Array<any>;
+  paths: IFetchedPaths[];
+  startPointCity: ICity;
+  endPointCity: ICity;
+  currentPaths: IFetchedPaths[];
 
   pathsSubj$: Subject<any> = new BehaviorSubject<any>([]);
+  cleanPathsSubj$: Subject<any> = new Subject<boolean>();
 
-  constructor(private httpSrv: HttpService) {}
+  constructor(
+    private httpSrv: HttpService,
+    private alertCtrl: AlertController,
+    private router: Router
+  ) {}
 
   getAllCities() {
     this.citiesSub = this.httpSrv
@@ -28,19 +55,114 @@ export class PlacesService {
   }
 
   getEndPointAutocomplete(str: string): Observable<ICity[]> {
-   
     return this.getCitiesAutocomplete(str);
   }
 
   getPaths(startPoint: ICity, endPoint: ICity): void {
+    this.startPointCity = startPoint;
+    this.endPointCity = endPoint;
     this.httpSrv
       .getPaths(startPoint.id, endPoint.id)
-      .subscribe((res) => {
+      .pipe(
+        map((data) => {
+          const pathsArr = data.body.filter(
+            (path) => path.duration_minutes != "0"
+          );
+          const transformedPaths = pathsArr.map((path: IFetchedPaths) => {
+            return this.transformPath(path);
+          });
+          this.currentPaths = transformedPaths;
+          return transformedPaths;
+        })
+      )
+      .subscribe((paths) => {
+        this.paths = paths;
 
-        this.paths= res.body;
-         this.pathsSubj$.next(this.paths);
+        if (paths.length === 0) {
+          this.errorHandler();
+          this.cleanPathsSubj$.next(true);
+          return;
+        } else {
+          this.pathsSubj$.next(this.paths);
+        }
+      }),
+      (_error) => {
+        this.errorHandler();
+      };
+  }
+
+  getPathDetail(type: string): IFetchedPaths {
+    return this.currentPaths.find((p) => p.routeType === type);
+  }
+
+  private errorHandler() {
+    console.log("error");
+    this.alertCtrl
+      .create({
+        header: "An error occurred!",
+        message: "No information fetched. Please try again later.",
+        buttons: [
+          {
+            text: "Okay",
+            handler: () => {
+              this.router.navigate(["/places/tabs/discover"]);
+            },
+          },
+        ],
+      })
+      .then((alertEl) => {
+        alertEl.present();
       });
-       
+  }
+
+  private transformPathDetails(
+    paths: IFetchedPathDetails[]
+  ): IFetchedPathDetails[] {
+    const transformed = paths.map((path) => {
+      console.log('url', path.transportation_type);
+      console.log('url', transportIconMap.get('Bus'));
+      return {
+        ...path,
+        duration_minutes: this.transformDuration(
+          path.duration_minutes.toString()
+        ),
+        euro_price: this.transformPrice(path.euro_price.toString()),
+        imgUrl: transportIconMap.get(path.transportation_type)
+      };
+    });
+
+    return transformed;
+  }
+
+  private transformPath(path: IFetchedPaths): IFetchedPaths {
+    const transformedPath = {
+      ...path,
+      duration_minutes: this.transformDuration(
+        path.duration_minutes.toString()
+      ),
+      euro_price: this.transformPrice(path.euro_price.toString()),
+      direct_paths: this.transformPathDetails(path.direct_paths),
+      imgUrl: iconMap.get(path.routeType)
+    };
+    return transformedPath;
+  }
+
+  private transformDuration(minutes: string) {
+    const days = Math.floor(+minutes / 60 / 24);
+    const dayStr = days < 1 ? "" : days + "d";
+    const hours = Math.floor(+minutes / 60 - days * 24);
+    const hourStr = hours < 1 ? "" : hours + "h";
+    const min = +minutes - days * 24 * 60 - hours * 60;
+    const minStr = min + "min";
+    const duration = dayStr + " " + hourStr + " " + minStr;
+
+    return duration;
+  }
+
+  private transformPrice(price: string) {
+    const euro = Math.floor(+price);
+    const cent = Math.floor(+price - euro) * 10;
+    return price;
   }
 
   private getCitiesAutocomplete(str: string): Observable<ICity[]> {

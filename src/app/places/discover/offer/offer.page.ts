@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController } from "@ionic/angular";
 import { Subscription } from "rxjs";
+import { ICity } from '../../places.model';
 import { PlacesService } from "../../places.service";
 
 @Component({
@@ -11,6 +12,9 @@ import { PlacesService } from "../../places.service";
 export class OfferPage implements OnInit {
   routs: Array<any>;
   paths: Subscription;
+  startPointCity: ICity;
+  endPointCity: ICity;
+  isLoading: boolean;
 
   constructor(
     private navCtrl: NavController,
@@ -18,11 +22,15 @@ export class OfferPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.paths = this.placesSrv.pathsSubj$.subscribe((res) => {
-      console.log("res offer", res);
+   this.startPointCity = this.placesSrv.startPointCity;
+   this.endPointCity = this.placesSrv.endPointCity;
       this.routs = res as Array<any>;
+      console.log('routs', this.routs);
+     this.isLoading = false;
     });
-    console.log(this.routs);
+  
   }
 
   onGoBack() {

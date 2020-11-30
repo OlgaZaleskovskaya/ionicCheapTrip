@@ -23,6 +23,11 @@ const routes: Routes = [
             loadChildren: () =>
               import("./discover/offer/offer.module").then((m) => m.OfferPageModule),
           },
+          {
+            path: ":pathId",
+            loadChildren: () =>
+              import("./discover/details/details.module").then((m) => m.DetailsPageModule),
+          },
         ],
       },
       {

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DiscoverPageRoutingModule } from './discover-routing.module';
+import { DetailsPageRoutingModule } from './details-routing.module';
 
-import { DiscoverPage } from './discover.page';
+import { DetailsPage } from './details.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    DiscoverPageRoutingModule,
+    DetailsPageRoutingModule,
     SharedModule
   ],
-  declarations: [DiscoverPage]
+  declarations: [DetailsPage]
 })
-export class DiscoverPageModule {}
+export class DetailsPageModule {}
