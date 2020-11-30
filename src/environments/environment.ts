@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   url1: 'http://3.18.167.68:8080',
   url2:  'http://18.158.89.230:8080',
-  key: 'AIzaSyCdii-DleUQKC5ZN0cUWXXdta73zNTW7gM'
+  key: 'fdfdfd'
 };
 
 
