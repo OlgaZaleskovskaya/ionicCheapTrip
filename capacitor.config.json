@@ -1,0 +1,15 @@
+{
+  "appId": "com.travelmore.cheaptrip",
+  "appName": "cheapTrip",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "server": {
+    "url": "http://192.168.1.207:8100"
+  }
+}

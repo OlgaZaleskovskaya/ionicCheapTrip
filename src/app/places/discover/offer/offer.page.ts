@@ -27,7 +27,7 @@ export class OfferPage implements OnInit {
    this.startPointCity = this.placesSrv.startPointCity;
    this.endPointCity = this.placesSrv.endPointCity;
       this.routs = res as Array<any>;
-      console.log('routs', this.routs);
+      console.log('ROUTS', this.routs);
      this.isLoading = false;
     });
   

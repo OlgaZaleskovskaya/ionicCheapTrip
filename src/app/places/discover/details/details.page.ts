@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { IonItemSliding, NavController } from "@ionic/angular";
 import { IFetchedPathDetails, IFetchedPaths } from "../../places.model";
@@ -14,6 +14,7 @@ export class DetailsPage implements OnInit {
   paths: IFetchedPathDetails[];
   endPointCityName: string;
   startPointCityName: string;
+  @Input() ways: Array<any>;
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController,
@@ -21,16 +22,17 @@ export class DetailsPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log('ways', this.ways);
     this.startPointCityName = this.placesSrv.startPointCity.name;
     this.endPointCityName = this.placesSrv.endPointCity.name;
-    this.route.paramMap.subscribe((paramMap) => {
+   /*  this.route.paramMap.subscribe((paramMap) => {
       if (!paramMap.has("pathId")) {
         this.navCtrl.navigateBack("/places/tabs/offer");
         return;
       }
       this.rout = this.placesSrv.getPathDetail(paramMap.get("pathId"));
       this.paths = this.rout.direct_paths;
-    });
+    }); */
   }
 
   onGoToMap(slidingItem: IonItemSliding){

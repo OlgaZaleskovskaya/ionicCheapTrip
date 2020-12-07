@@ -1,5 +1,7 @@
 {
   "name": "cheapTrip",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

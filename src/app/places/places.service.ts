@@ -16,12 +16,51 @@ iconMap.set("Ground route", "../../assets/images/groundWay.png");
 iconMap.set("Mixed route", "../../assets/images/mixedWay.png");
 iconMap.set("Flying route", "../../assets/images/flightWay.png");
 
+enum Icons {
+  FLIGHT = `<span class="material-icons">
+  flight
+  </span>`,
+  BUS = `<span class="material-icons">
+  directions_bus
+  </span>`,
+  TRAIN = `<span class="material-icons">
+  directions_railway
+  </span>`,
+  SUBWAY = `<span class="material-icons">
+  directions_subway
+  </span>`,
+  SHIP = `<span class="material-icons">
+  directions_boat
+  </span>`,
+  ONFOOT = `<span class="material-icons">
+  directions_walk
+  </span>`,
+  CAR = `<span class="material-icons">
+  directions_car
+  </span>`,
+  TAXI = `<span class="material-icons">
+  local_taxi
+  </span>`,
+  SHUTTLE = `<span class="material-icons">
+  shuttle
+  </span>`,
+}
 const transportIconMap = new Map();
-transportIconMap.set("Bus", "../../assets/images/transport/bus.png");
+/* transportIconMap.set("Bus", "../../assets/images/transport/bus.png");
 transportIconMap.set("Train", "../../assets/images/transport/train.png");
 transportIconMap.set("Ride Share", "../../assets/images/transport/rideShare.png");
 transportIconMap.set("Taxi", "../../assets/images/transport/taxi.png");
-transportIconMap.set("Flight", "../../assets/images/transport/flight.png");
+transportIconMap.set("Flight", "../../assets/images/transport/flight.png"); */
+transportIconMap.set("Bus", Icons.BUS);
+transportIconMap.set("Train", Icons.TRAIN);
+transportIconMap.set("Ride Share", Icons.CAR);
+transportIconMap.set("Taxi", Icons.TAXI);
+transportIconMap.set("Flight", Icons.FLIGHT);
+
+
+
+
+
 
 @Injectable({
   providedIn: "root",
@@ -65,13 +104,24 @@ export class PlacesService {
       .getPaths(startPoint.id, endPoint.id)
       .pipe(
         map((data) => {
-          const pathsArr = data.body.filter(
+          let paths = data.body as IFetchedPaths[];
+     
+          for(let i = 1; i<= paths.length -1 ; i++){
+    
+        if(paths[0].duration_minutes === paths[i].duration_minutes &&
+              data.body[0]. euro_price === data.body[i]. euro_price){
+                paths[i].duration_minutes = 0;
+                paths[i].euro_price = 0;
+            } 
+          }
+          const pathsArr = paths.filter(
             (path) => path.duration_minutes != "0"
           );
           const transformedPaths = pathsArr.map((path: IFetchedPaths) => {
             return this.transformPath(path);
           });
           this.currentPaths = transformedPaths;
+
           return transformedPaths;
         })
       )
@@ -119,8 +169,7 @@ export class PlacesService {
     paths: IFetchedPathDetails[]
   ): IFetchedPathDetails[] {
     const transformed = paths.map((path) => {
-      console.log('url', path.transportation_type);
-      console.log('url', transportIconMap.get('Bus'));
+
       return {
         ...path,
         duration_minutes: this.transformDuration(

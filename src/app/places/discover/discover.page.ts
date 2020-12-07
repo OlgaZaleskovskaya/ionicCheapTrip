@@ -11,7 +11,7 @@ import { PlacesService } from "../places.service";
   styleUrls: ["./discover.page.scss"],
 })
 export class DiscoverPage implements OnInit, OnDestroy {
-  //form: FormGroup;
+
   startPointCitiesAvailable: boolean = false;
   endPointCitiesAvailable: boolean = false;
   startPointCities: ICity[] = [];
@@ -23,10 +23,12 @@ export class DiscoverPage implements OnInit, OnDestroy {
   startPointCity: ICity = { id: -1, name: "" };
   endPointCity: ICity = { id: -1, name: "" };
 
+
   constructor(private placesSrv: PlacesService) {}
 
   ngOnInit() {
     this.placesSrv.getAllCities();
+
     this.cleanDataSubscription = this.placesSrv.cleanPathsSubj$.subscribe(
       (_res) => {
         this.onClearAll();
@@ -44,6 +46,12 @@ export class DiscoverPage implements OnInit, OnDestroy {
   onChangeFrom() {}
 
   onStartPointSearchChange(event: any) {
+    console.log('event', event.detail);
+    
+    if(event.detail.value == ""){
+      console.log('inside event');
+      this.onClearStartPoint();
+    }
     const substring = event.target.value;
     if (this.ignoreNextStartPointChange) {
       this.ignoreNextStartPointChange = false;
@@ -93,8 +101,9 @@ export class DiscoverPage implements OnInit, OnDestroy {
   }
 
   onClearStartPoint() {
+    console.log('on clear stratpoint');
     this.startPointCity = { id: -1, name: "" };
-  this.ignoreNextStartPointChange = true;
+    this.ignoreNextStartPointChange = true;
     this.startPointCitiesAvailable = false;
     this.startPointCities = [];
   }
