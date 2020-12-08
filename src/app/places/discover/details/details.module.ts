@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { DetailsPageRoutingModule } from './details-routing.module';
 
-import { DetailsPage } from './details.page';
+ionic
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -17,6 +17,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     DetailsPageRoutingModule,
     SharedModule
   ],
-  declarations: [DetailsPage]
+  declarations: []
 })
 export class DetailsPageModule {}
