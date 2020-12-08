@@ -1,5 +1,18 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["discover-details-details-module"],{
 
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/places/discover/details/details.page.html":
+/*!*************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/places/discover/details/details.page.html ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<!-- <ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/places/tabs/discover\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>{{startPointCityName}} => {{endPointCityName}}</ion-title>\n  </ion-toolbar>\n</ion-header> \n<p>dfdfdf</p>\n<ion-content>-->\n<ion-list>\n  <ion-item-sliding *ngFor=\"let way of ways\" #slidingItem>\n    <ion-item>\n      <ion-avatar slot=\"start\">\n        <span class=\"icon\" [innerHTML]=\"way.imgUrl\"></span>\n      </ion-avatar>\n      <ion-label>\n        <p>{{way.from}}\n          <ion-icon name=\"arrow-forward\"></ion-icon>\n          {{way.to}}<span class=\"spacer\"></span>\n          {{way.transportation_type}}</p>\n\n        <p>\n          <span>{{way.duration_minutes}}</span>\n          <span class=\"spacer\"></span>\n          <span>\n            <ion-badge color=\"primary\">{{way.euro_price | currency:'EUR':'symbol':'1.2-2' }}</ion-badge>\n          </span>\n\n        </p>\n      </ion-label>\n    </ion-item>\n    <ion-item-options side=\"end\">\n      <ion-item-option color=\"secondary\" (click)=\"onGoToMap(slidingItem)\">\n        <ion-icon name=\"eye-sharp\" slot=\"icon-only\"></ion-icon>\n      </ion-item-option>\n    </ion-item-options>\n\n  </ion-item-sliding>\n</ion-list>\n<!--  <app-location-picker></app-location-picker> \n</ion-content> -->");
+
+/***/ }),
+
 /***/ "./src/app/places/discover/details/details-routing.module.ts":
 /*!*******************************************************************!*\
   !*** ./src/app/places/discover/details/details-routing.module.ts ***!
@@ -77,6 +90,83 @@ DetailsPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         declarations: [_details_page__WEBPACK_IMPORTED_MODULE_6__["DetailsPage"]]
     })
 ], DetailsPageModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/places/discover/details/details.page.scss":
+/*!***********************************************************!*\
+  !*** ./src/app/places/discover/details/details.page.scss ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("p {\n  display: flex;\n}\n\nspan.spacer {\n  flex: 1 1 auto;\n}\n\n.icon {\n  color: var(--ion-color-secondary);\n}\n\n.item-avatar {\n  width: 100% !important;\n  height: 100% !important;\n  max-width: 50px !important;\n  max-height: 50px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGxhY2VzL2Rpc2NvdmVyL2RldGFpbHMvZGV0YWlscy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxhQUFBO0FBQ0o7O0FBQ0E7RUFDSSxjQUFBO0FBRUo7O0FBRUE7RUFDSSxpQ0FBQTtBQUNKOztBQUVBO0VBQ0ksc0JBQUE7RUFDQSx1QkFBQTtFQUNBLDBCQUFBO0VBQ0EsMkJBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3BsYWNlcy9kaXNjb3Zlci9kZXRhaWxzL2RldGFpbHMucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsicHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbn1cclxuc3Bhbi5zcGFjZXJ7XHJcbiAgICBmbGV4OiAxIDEgYXV0bztcclxuICAgIFxyXG59XHJcblxyXG4uaWNvbntcclxuICAgIGNvbG9yOiB2YXIoIC0taW9uLWNvbG9yLXNlY29uZGFyeSk7XHJcbn1cclxuXHJcbi5pdGVtLWF2YXRhciAgeyAgICAgXHJcbiAgICB3aWR0aDoxMDAlICFpbXBvcnRhbnQ7ICBcclxuICAgIGhlaWdodCA6IDEwMCUgIWltcG9ydGFudDsgIFxyXG4gICAgbWF4LXdpZHRoOiA1MHB4ICFpbXBvcnRhbnQ7ICAvL2FueSBzaXplXHJcbiAgICBtYXgtaGVpZ2h0OiA1MHB4ICFpbXBvcnRhbnQ7IC8vYW55IHNpemUgXHJcbiAgICB9Il19 */");
+
+/***/ }),
+
+/***/ "./src/app/places/discover/details/details.page.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/places/discover/details/details.page.ts ***!
+  \*********************************************************/
+/*! exports provided: DetailsPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DetailsPage", function() { return DetailsPage; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
+/* harmony import */ var _places_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../places.service */ "./src/app/places/places.service.ts");
+
+
+
+
+
+let DetailsPage = class DetailsPage {
+    constructor(route, navCtrl, placesSrv) {
+        this.route = route;
+        this.navCtrl = navCtrl;
+        this.placesSrv = placesSrv;
+    }
+    ngOnInit() {
+        console.log('ways', this.ways);
+        this.startPointCityName = this.placesSrv.startPointCity.name;
+        this.endPointCityName = this.placesSrv.endPointCity.name;
+        /*  this.route.paramMap.subscribe((paramMap) => {
+           if (!paramMap.has("pathId")) {
+             this.navCtrl.navigateBack("/places/tabs/offer");
+             return;
+           }
+           this.rout = this.placesSrv.getPathDetail(paramMap.get("pathId"));
+           this.paths = this.rout.direct_paths;
+         }); */
+    }
+    onGoToMap(slidingItem) {
+        slidingItem.close();
+        console.log('Editing item');
+    }
+};
+DetailsPage.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"] },
+    { type: _places_service__WEBPACK_IMPORTED_MODULE_4__["PlacesService"] }
+];
+DetailsPage.propDecorators = {
+    ways: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }]
+};
+DetailsPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: "app-details",
+        template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! raw-loader!./details.page.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/places/discover/details/details.page.html")).default,
+        styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./details.page.scss */ "./src/app/places/discover/details/details.page.scss")).default]
+    })
+], DetailsPage);
 
 
 

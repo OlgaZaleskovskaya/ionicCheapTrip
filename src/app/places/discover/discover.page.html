@@ -4,20 +4,24 @@
   </ion-buttons>
 
   <ion-title style="display:inline-block">CHEAP TRIP. PAY LESS, VISIT MORE!</ion-title>
-  <ion-img  class="logo" slot="end" src="../../../assets/logo.jpg" width="60px" style="display:inline-block" height="60px"></ion-img>
+  <ion-img class="logo" slot="end" src="../../../assets/logo.jpg" width="60px" style="display:inline-block"
+    height="60px"></ion-img>
 </ion-toolbar>
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle color="secondary" class="text-center">
+      <ion-card-title color="secondary" class="text-center"> Discover the cheapest way to get anywhere combining
+        plane,
+        train, bus and rideshare</ion-card-title>
+      <!-- <ion-card-subtitle color="secondary" class="text-center">
         Discover the cheapest way to get anywhere combining
         plane,
-        train, bus and rideshare</ion-card-subtitle>
+        train, bus and rideshare</ion-card-subtitle> -->
     </ion-card-header>
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col size-xs="12" size-sm="6" offset-sm="3">
+          <ion-col size="12" size-md="6" >
             <ion-item class="pointInpt">
               <ion-label position="floating" color="secondary"><b>From:</b></ion-label>
               <ion-input clearInput (ionChange)="onStartPointSearchChange($event)" [(ngModel)]="startPointCity.name">
@@ -25,7 +29,7 @@
               <!--   <ion-note slot="end" color="danger" (click)="onClearStartPoint()" role="button"><ion-icon name="remove-outline"></ion-icon></ion-note>
           -->
             </ion-item>
-            <ion-item *ngIf="startPointCitiesAvailable">
+            <ion-item class="autocomplete" *ngIf="startPointCitiesAvailable">
               <ion-list style="width: 100%; max-height: 200px; overflow-y: scroll;">
                 <ion-item *ngFor="let result of startPointCities" (click)="startPointCitySelected(result)" button>
                   <ion-label>{{result.name}}</ion-label>
@@ -33,21 +37,17 @@
               </ion-list>
             </ion-item>
           </ion-col>
-          <!--  <ion-col size-xs="2"  size-sm="1" offset-sm="3">
-            <ion-item lines="none">
-              <ion-icon name="remove-outline"></ion-icon>
-            </ion-item>
-          </ion-col> -->
-        </ion-row>
-        <ion-row>
-          <ion-col size-sm="6" offset-sm="3">
+
+       
+          <ion-col size="12" size-md="6">
             <ion-item class="pointInpt">
               <ion-label position="floating" color="secondary"><b>To:</b></ion-label>
-              <ion-input clearInput (ionChange)="onEndPointSearchChange($event)" [(ngModel)]="endPointCity.name"></ion-input>
-           <!--    <ion-icon slot="end" color="danger" (click)="onClearEndPoint()" role="button" name="remove-outline">
+              <ion-input clearInput (ionChange)="onEndPointSearchChange($event)" [(ngModel)]="endPointCity.name">
+              </ion-input>
+              <!--    <ion-icon slot="end" color="danger" (click)="onClearEndPoint()" role="button" name="remove-outline">
               </ion-icon> -->
             </ion-item>
-            <ion-item *ngIf="endPointCitiesAvailable">
+            <ion-item class="autocomplete" *ngIf="endPointCitiesAvailable">
               <ion-list style="width: 100%; max-height: 200px; overflow-y: scroll;">
                 <ion-item *ngFor="let result of endPointCities" (click)="endPointCitySelected(result)" button>
                   <ion-label>{{result.name}}</ion-label>
@@ -57,24 +57,24 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="6" offset="3">
-            <div class="text-center">
+          <ion-col size="8" offset="2" size-md="4" offset-md="4" class="ion-text-center">
+           
+                <ion-button size="small" fill="solid" type="button" (click)="onClearAll()" color="secondary">Clear
+                </ion-button>
+                <ion-button size="small" fill="solid" type="button" color="primary" routerDirection="forward"
+                  routerLink="/places/tabs/discover/offer" (click)="searchPath()">Let's go!</ion-button>
+            
+            <!--  <div class="text-center">
               <ion-button size="small" fill="solid" type="button" (click)="onClearAll()" color="secondary">Clear
               </ion-button>
               <ion-button size="small" fill="solid" type="button" color="primary" routerDirection="forward"
                 routerLink="/places/tabs/discover/offer" (click)="searchPath()">Let's go</ion-button>
-            </div>
+            </div> -->
           </ion-col>
         </ion-row>
+
       </ion-grid>
     </ion-card-content>
-    <!--  <ion-toolbar>
-      <ion-buttons class="ion-text-center">
 
-        <ion-button size="small" fill="solid" type="button" (click)="onClearAll()" color="secondary">Clear </ion-button>
-        <ion-button size="small" fill="solid" type="button" color="primary" routerDirection="forward"
-          routerLink="/places/tabs/discover/offer" (click)="searchPath()">Let's go</ion-button>
-      </ion-buttons>
-    </ion-toolbar> -->
   </ion-card>
 </ion-content>

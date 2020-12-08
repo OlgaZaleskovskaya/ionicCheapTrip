@@ -2174,12 +2174,32 @@
       iconMap.set("Ground route", "../../assets/images/groundWay.png");
       iconMap.set("Mixed route", "../../assets/images/mixedWay.png");
       iconMap.set("Flying route", "../../assets/images/flightWay.png");
+      var Icons;
+
+      (function (Icons) {
+        Icons["FLIGHT"] = "<span class=\"material-icons\">\n  flight\n  </span>";
+        Icons["BUS"] = "<span class=\"material-icons\">\n  directions_bus\n  </span>";
+        Icons["TRAIN"] = "<span class=\"material-icons\">\n  directions_railway\n  </span>";
+        Icons["SUBWAY"] = "<span class=\"material-icons\">\n  directions_subway\n  </span>";
+        Icons["SHIP"] = "<span class=\"material-icons\">\n  directions_boat\n  </span>";
+        Icons["ONFOOT"] = "<span class=\"material-icons\">\n  directions_walk\n  </span>";
+        Icons["CAR"] = "<span class=\"material-icons\">\n  directions_car\n  </span>";
+        Icons["TAXI"] = "<span class=\"material-icons\">\n  local_taxi\n  </span>";
+        Icons["SHUTTLE"] = "<span class=\"material-icons\">\n  shuttle\n  </span>";
+      })(Icons || (Icons = {}));
+
       var transportIconMap = new Map();
-      transportIconMap.set("Bus", "../../assets/images/transport/bus.png");
+      /* transportIconMap.set("Bus", "../../assets/images/transport/bus.png");
       transportIconMap.set("Train", "../../assets/images/transport/train.png");
       transportIconMap.set("Ride Share", "../../assets/images/transport/rideShare.png");
       transportIconMap.set("Taxi", "../../assets/images/transport/taxi.png");
-      transportIconMap.set("Flight", "../../assets/images/transport/flight.png");
+      transportIconMap.set("Flight", "../../assets/images/transport/flight.png"); */
+
+      transportIconMap.set("Bus", Icons.BUS);
+      transportIconMap.set("Train", Icons.TRAIN);
+      transportIconMap.set("Ride Share", Icons.CAR);
+      transportIconMap.set("Taxi", Icons.TAXI);
+      transportIconMap.set("Flight", Icons.FLIGHT);
 
       var PlacesService = /*#__PURE__*/function () {
         function PlacesService(httpSrv, alertCtrl, router) {
@@ -2220,7 +2240,16 @@
             this.startPointCity = startPoint;
             this.endPointCity = endPoint;
             this.httpSrv.getPaths(startPoint.id, endPoint.id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (data) {
-              var pathsArr = data.body.filter(function (path) {
+              var paths = data.body;
+
+              for (var i = 1; i <= paths.length - 1; i++) {
+                if (paths[0].duration_minutes === paths[i].duration_minutes && data.body[0].euro_price === data.body[i].euro_price) {
+                  paths[i].duration_minutes = 0;
+                  paths[i].euro_price = 0;
+                }
+              }
+
+              var pathsArr = paths.filter(function (path) {
                 return path.duration_minutes != "0";
               });
               var transformedPaths = pathsArr.map(function (path) {
@@ -2276,8 +2305,6 @@
             var _this12 = this;
 
             var transformed = paths.map(function (path) {
-              console.log('url', path.transportation_type);
-              console.log('url', transportIconMap.get('Bus'));
               return Object.assign(Object.assign({}, path), {
                 duration_minutes: _this12.transformDuration(path.duration_minutes.toString()),
                 euro_price: _this12.transformPrice(path.euro_price.toString()),

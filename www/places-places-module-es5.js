@@ -91,7 +91,7 @@
             loadChildren: function loadChildren() {
               return Promise.all(
               /*! import() | discover-offer-offer-module */
-              [__webpack_require__.e("default~discover-details-details-module~discover-discover-module~discover-offer-offer-module~offer-o~b813fa14"), __webpack_require__.e("common")]).then(__webpack_require__.bind(null,
+              [__webpack_require__.e("default~discover-details-details-module~discover-discover-module~discover-offer-offer-module~offer-o~b813fa14"), __webpack_require__.e("default~discover-offer-offer-module~offer-offer-module")]).then(__webpack_require__.bind(null,
               /*! ./discover/offer/offer.module */
               "./src/app/places/discover/offer/offer.module.ts")).then(function (m) {
                 return m.OfferPageModule;
@@ -102,7 +102,7 @@
             loadChildren: function loadChildren() {
               return Promise.all(
               /*! import() | discover-details-details-module */
-              [__webpack_require__.e("default~discover-details-details-module~discover-discover-module~discover-offer-offer-module~offer-o~b813fa14"), __webpack_require__.e("common"), __webpack_require__.e("discover-details-details-module")]).then(__webpack_require__.bind(null,
+              [__webpack_require__.e("default~discover-details-details-module~discover-discover-module~discover-offer-offer-module~offer-o~b813fa14"), __webpack_require__.e("discover-details-details-module")]).then(__webpack_require__.bind(null,
               /*! ./discover/details/details.module */
               "./src/app/places/discover/details/details.module.ts")).then(function (m) {
                 return m.DetailsPageModule;
@@ -116,7 +116,7 @@
             loadChildren: function loadChildren() {
               return Promise.all(
               /*! import() | offer-offer-module */
-              [__webpack_require__.e("default~discover-details-details-module~discover-discover-module~discover-offer-offer-module~offer-o~b813fa14"), __webpack_require__.e("common"), __webpack_require__.e("offer-offer-module")]).then(__webpack_require__.bind(null,
+              [__webpack_require__.e("default~discover-details-details-module~discover-discover-module~discover-offer-offer-module~offer-o~b813fa14"), __webpack_require__.e("default~discover-offer-offer-module~offer-offer-module"), __webpack_require__.e("offer-offer-module")]).then(__webpack_require__.bind(null,
               /*! ./offer/offer.module */
               "./src/app/places/offer/offer.module.ts")).then(function (m) {
                 return m.OfferPageModule;

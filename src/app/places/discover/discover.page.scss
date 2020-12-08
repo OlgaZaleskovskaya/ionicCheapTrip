@@ -52,3 +52,12 @@ ion-list ion-item {
   --min-height: 24px;
   margin: 0px;
 }
+
+ion-item.autocomplete{
+  position: absolute;
+  z-index: 100;
+}
+ ion-card{
+
+height: 100vh;
+ }
