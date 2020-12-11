@@ -57,11 +57,6 @@ transportIconMap.set("Ride Share", Icons.CAR);
 transportIconMap.set("Taxi", Icons.TAXI);
 transportIconMap.set("Flight", Icons.FLIGHT);
 
-
-
-
-
-
 @Injectable({
   providedIn: "root",
 })
@@ -105,18 +100,17 @@ export class PlacesService {
       .pipe(
         map((data) => {
           let paths = data.body as IFetchedPaths[];
-     
-          for(let i = 1; i<= paths.length -1 ; i++){
-    
-        if(paths[0].duration_minutes === paths[i].duration_minutes &&
-              data.body[0]. euro_price === data.body[i]. euro_price){
-                paths[i].duration_minutes = 0;
-                paths[i].euro_price = 0;
-            } 
+
+          for (let i = 1; i <= paths.length - 1; i++) {
+            if (
+              paths[0].duration_minutes === paths[i].duration_minutes &&
+              data.body[0].euro_price === data.body[i].euro_price
+            ) {
+              paths[i].duration_minutes = 0;
+              paths[i].euro_price = 0;
+            }
           }
-          const pathsArr = paths.filter(
-            (path) => path.duration_minutes != "0"
-          );
+          const pathsArr = paths.filter((path) => path.duration_minutes != "0");
           const transformedPaths = pathsArr.map((path: IFetchedPaths) => {
             return this.transformPath(path);
           });
@@ -169,14 +163,13 @@ export class PlacesService {
     paths: IFetchedPathDetails[]
   ): IFetchedPathDetails[] {
     const transformed = paths.map((path) => {
-
       return {
         ...path,
         duration_minutes: this.transformDuration(
           path.duration_minutes.toString()
         ),
         euro_price: this.transformPrice(path.euro_price.toString()),
-        imgUrl: transportIconMap.get(path.transportation_type)
+        imgUrl: transportIconMap.get(path.transportation_type),
       };
     });
 
@@ -191,7 +184,7 @@ export class PlacesService {
       ),
       euro_price: this.transformPrice(path.euro_price.toString()),
       direct_paths: this.transformPathDetails(path.direct_paths),
-      imgUrl: iconMap.get(path.routeType)
+      imgUrl: iconMap.get(path.routeType),
     };
     return transformedPath;
   }
@@ -218,7 +211,7 @@ export class PlacesService {
     const citiesList = this.allCities.filter((city) => {
       return city.name.toLowerCase().indexOf(str.toLowerCase()) > -1;
     });
-
+    console.log("cities list", citiesList);
     const transformedList = citiesList.map((item, index, array) => {
       return {
         ...item,

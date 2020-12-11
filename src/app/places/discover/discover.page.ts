@@ -11,7 +11,6 @@ import { PlacesService } from "../places.service";
   styleUrls: ["./discover.page.scss"],
 })
 export class DiscoverPage implements OnInit, OnDestroy {
-
   startPointCitiesAvailable: boolean = false;
   endPointCitiesAvailable: boolean = false;
   startPointCities: ICity[] = [];
@@ -22,7 +21,6 @@ export class DiscoverPage implements OnInit, OnDestroy {
   ignoreNextEndPointChange: boolean = false;
   startPointCity: ICity = { id: -1, name: "" };
   endPointCity: ICity = { id: -1, name: "" };
-
 
   constructor(private placesSrv: PlacesService) {}
 
@@ -39,17 +37,10 @@ export class DiscoverPage implements OnInit, OnDestroy {
     this.cleanDataSubscription.unsubscribe();
   }
 
-  onSubmit() {}
 
-  onCleanInput(input: string) {}
-
-  onChangeFrom() {}
 
   onStartPointSearchChange(event: any) {
-    console.log('event', event.detail);
-    
-    if(event.detail.value == ""){
-      console.log('inside event');
+    if (event.detail.value == "") {
       this.onClearStartPoint();
     }
     const substring = event.target.value;
@@ -69,6 +60,9 @@ export class DiscoverPage implements OnInit, OnDestroy {
   }
 
   onEndPointSearchChange(event: any) {
+    if (event.detail.value == "") {
+      this.onClearEndPoint();
+    }
     const substring = event.target.value;
     if (this.ignoreNextEndPointChange) {
       this.ignoreNextEndPointChange = false;
@@ -101,7 +95,6 @@ export class DiscoverPage implements OnInit, OnDestroy {
   }
 
   onClearStartPoint() {
-    console.log('on clear stratpoint');
     this.startPointCity = { id: -1, name: "" };
     this.ignoreNextStartPointChange = true;
     this.startPointCitiesAvailable = false;
@@ -116,7 +109,6 @@ export class DiscoverPage implements OnInit, OnDestroy {
   }
 
   onClearAll() {
-    console.log("on clear all");
     this.onClearStartPoint();
     this.onClearEndPoint();
   }

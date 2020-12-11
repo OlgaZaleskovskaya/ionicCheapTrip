@@ -1,5 +1,4 @@
-
-.logo{
+.logo {
   margin-right: 1rem;
 }
 
@@ -7,11 +6,16 @@ h3 {
   text-align: center;
   color: var (--ion-color-secondary);
 }
-ion-title {
-  font-size: 0.8rem;
+ion-title , p.title{
   font-family: Lato, sans-serif;
   font-style: italic;
 }
+
+p.title{
+  display: flex;
+}
+
+
 ion-card-title,
 ion-card-subtitle {
   text-align: center;
@@ -19,23 +23,37 @@ ion-card-subtitle {
 }
 
 ion-img {
-width: 50px;
-height:50px;
-object-fit: contain;
+  width: 100%;
+ height: auto;
+  object-fit: contain;
+}
+ion-row.input{
+
+  --ion-grid-columns: 14;
 }
 
+@media (max-width: 576px) {
+  .hide-xs {
+    display: none;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 2000px) {
+  .hide-sm {
+    display: none;
+  }
+}
 .item-has-focus {
   --highlight-background: var(--ion-color-primary);
 }
 ion-input {
- 
   --padding-start: 1rem;
   --padding-top: 0.1rem;
   padding: 1rem;
 }
 
-ion-item.pointInput{
-   --background: rgba(255, 72, 0, 0.1);
+ion-item.pointInput {
+  --background: rgba(255, 72, 0, 0.1);
 }
 ion-label {
   --color: var(--ion-color-secondary);
@@ -53,11 +71,26 @@ ion-list ion-item {
   margin: 0px;
 }
 
-ion-item.autocomplete{
+ion-item.autocomplete {
   position: absolute;
-  z-index: 100;
-}
- ion-card{
 
-height: 100vh;
- }
+  z-index: 100;
+  ion-list {
+    ion-item {
+      p {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+ion-card {
+  height: 100vh;
+}
+ion-button {
+  margin-top: 3rem;
+}
+
+ion-col.buttons {
+  display: flex;
+  justify-content: space-between;
+}
