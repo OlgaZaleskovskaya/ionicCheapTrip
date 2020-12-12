@@ -211,7 +211,7 @@ export class PlacesService {
     const citiesList = this.allCities.filter((city) => {
       return city.name.toLowerCase().indexOf(str.toLowerCase()) > -1;
     });
-    console.log("cities list", citiesList);
+  
     const transformedList = citiesList.map((item, index, array) => {
       return {
         ...item,

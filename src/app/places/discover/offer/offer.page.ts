@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController } from "@ionic/angular";
 import { Subscription } from "rxjs";
-import { ICity } from '../../places.model';
+import { ICity } from "../../places.model";
 import { PlacesService } from "../../places.service";
 
 @Component({
@@ -24,16 +24,29 @@ export class OfferPage implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.paths = this.placesSrv.pathsSubj$.subscribe((res) => {
-   this.startPointCity = this.placesSrv.startPointCity;
-   this.endPointCity = this.placesSrv.endPointCity;
+      this.startPointCity = this.placesSrv.startPointCity;
+      this.endPointCity = this.placesSrv.endPointCity;
       this.routs = res as Array<any>;
-      console.log('ROUTS', this.routs);
-     this.isLoading = false;
+      this.routs = this.routs.map((rout: any) => {
+        return { ...rout, cities: this.getCities(rout) };
+      });
+      this.isLoading = false;
     });
-  
   }
 
-  onGoBack() {
+  toSearchPage() {
     this.navCtrl.navigateBack("places/tabs/discover");
+  }
+
+  private getCities(rout: { direct_paths: Array<any> }): any {
+    const cities = [];
+    const citiesSet = new Set<string>();
+
+    rout.direct_paths.forEach((r: { from: string; to: string }) => {
+      citiesSet.add(r.from);
+      citiesSet.add(r.to);
+    });
+    console.log("cities", citiesSet);
+    return Array.from(citiesSet);
   }
 }

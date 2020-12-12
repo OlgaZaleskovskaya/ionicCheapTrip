@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { NavController } from "@ionic/angular";
 import { Subscription } from "rxjs";
 import { ICity } from "../places.model";
 
@@ -22,7 +23,10 @@ export class DiscoverPage implements OnInit, OnDestroy {
   startPointCity: ICity = { id: -1, name: "" };
   endPointCity: ICity = { id: -1, name: "" };
 
-  constructor(private placesSrv: PlacesService) {}
+  constructor(
+    private placesSrv: PlacesService,
+    private navCtrl: NavController
+  ) {}
 
   ngOnInit() {
     this.placesSrv.getAllCities();
@@ -36,8 +40,6 @@ export class DiscoverPage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.cleanDataSubscription.unsubscribe();
   }
-
-
 
   onStartPointSearchChange(event: any) {
     if (event.detail.value == "") {
@@ -111,5 +113,9 @@ export class DiscoverPage implements OnInit, OnDestroy {
   onClearAll() {
     this.onClearStartPoint();
     this.onClearEndPoint();
+  }
+
+  toSearchPage() {
+    this.navCtrl.navigateBack('/places/tabs/discover');
   }
 }

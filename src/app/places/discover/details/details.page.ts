@@ -22,7 +22,7 @@ export class DetailsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('ways', this.ways);
+  console.log('ways', this.ways);
     this.startPointCityName = this.placesSrv.startPointCity.name;
     this.endPointCityName = this.placesSrv.endPointCity.name;
    /*  this.route.paramMap.subscribe((paramMap) => {
@@ -38,8 +38,11 @@ export class DetailsPage implements OnInit {
   onGoToMap(slidingItem: IonItemSliding){
    
       slidingItem.close();
-   
+  
       console.log('Editing item');
    
   }
+
+  
+ 
 }
