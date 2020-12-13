@@ -1,0 +1,19 @@
+{
+  "DISCOVER": {
+    "Sitetitle": "Cheap Trip",
+    "MainSlogan": "Cheap Trip: Pay less, travell more",
+    "Submit": "Let'go",
+    "Clear": "Clear",
+    "MainMessage": "Discover the cheapest way  to get anywhere combining plane, train, bus and rideshare",
+    "From": "From:",
+    "To": "To:"
+  },
+
+  "NameError": "I am sure you must have a name!",
+  "SelectLanguage": "Select Language",
+  
+  "OFFER": {
+    "NewSearch": "New Search",
+    "AvailablePaths": "AvailablePaths"
+  }
+}
