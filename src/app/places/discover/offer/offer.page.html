@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/places/tabs/discover"></ion-back-button>
     </ion-buttons>
-    <ion-title>Available paths</ion-title>
+    <ion-title>{{"OFFER.AvailablePaths"| translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,7 +16,7 @@
   <ion-grid *ngIf="!isLoading">
     <ion-row>
       <ion-col size="3" offset="8">
-        <ion-button (click)="toSearchPage()" fill="clear">New Search</ion-button>
+        <ion-button (click)="toSearchPage()" fill="clear">{{'OFFER.NewSearch' | translate}}</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>

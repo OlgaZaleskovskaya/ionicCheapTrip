@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+
+import { TranslateService } from "@ngx-translate/core";
 import { NavController } from "@ionic/angular";
 import { Subscription } from "rxjs";
 import { ICity } from "../places.model";
@@ -25,10 +26,16 @@ export class DiscoverPage implements OnInit, OnDestroy {
 
   constructor(
     private placesSrv: PlacesService,
-    private navCtrl: NavController
-  ) {}
+    private navCtrl: NavController,
+    public translate: TranslateService
+  ) {
+    translate.addLangs(["en", "ru"]);
+    translate.setDefaultLang("en");
+  }
 
   ngOnInit() {
+    let language = this.translate.getBrowserLang();
+  
     this.placesSrv.getAllCities();
 
     this.cleanDataSubscription = this.placesSrv.cleanPathsSubj$.subscribe(
@@ -116,6 +123,11 @@ export class DiscoverPage implements OnInit, OnDestroy {
   }
 
   toSearchPage() {
-    this.navCtrl.navigateBack('/places/tabs/discover');
+    this.navCtrl.navigateBack("/places/tabs/discover");
+  }
+
+  onSelectLang(lang: any) {
+    console.log("lang", lang);
+    this.translate.use(lang.detail.value);
   }
 }

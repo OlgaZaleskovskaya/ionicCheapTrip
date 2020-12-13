@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PlacesPageRoutingModule } from './places-routing.module';
 
 import { PlacesPage } from './places.page';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { PlacesPage } from './places.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    PlacesPageRoutingModule
+    PlacesPageRoutingModule,
+    SharedModule
   ],
   declarations: [PlacesPage]
 })

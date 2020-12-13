@@ -1,24 +1,22 @@
 <ion-toolbar color="primary">
   <ion-buttons slot="start">
-    <!--  <ion-menu-button menu="m1"></ion-menu-button> -->
+    <ion-menu-button menu="m1"></ion-menu-button>
   </ion-buttons>
-  <ion-grid>
-    <ion-row class="hide-xs">
-      <ion-col>
-        <ion-title style="display:inline-block">CHEAP TRIP.<span style="padding: 0px 10px;">&nbsp;</span> PAY LESS,
-          VISIT
-          MORE!</ion-title>
-      </ion-col>
-    </ion-row>
-    <ion-row class="hide-sm">
-      <ion-col>
-        <p class="title"><span>CHEAP TRIP.</span><span class="spacer"></span><span> PAY LESS,
-            VISIT
-            MORE!</span></p>
+  <ion-buttons class="select" slot="end">
+    <ion-item  class="select" lines="none">
+      <!--   <ion-icon name="checkbox-outline" slot="start"></ion-icon>
+   <ion-label>{{'SelectLanguage' | translate}}</ion-label> -->
+      <ion-select value="en" class="select" interface="popover" (ionChange)="onSelectLang($event)">
+        <ion-select-option value="en">Eng</ion-select-option>
+        <ion-select-option value="ru">Ru</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-buttons>
 
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-title class="hide-xs"> {{'DISCOVER.MainSlogan' | translate | uppercase}}</ion-title>
+  <p class="title hide-sm">{{'DISCOVER.MainSlogan' | translate | uppercase}}</p>
+
+
 
 </ion-toolbar>
 <ion-content>
@@ -26,20 +24,16 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title color="secondary" class="text-center hide-xs"> Discover the cheapest way to get anywhere combining
-        plane,
-        train, bus and rideshare</ion-card-title>
+      <ion-card-title color="secondary" class="text-center hide-xs">{{'DISCOVER.MainMessage' | translate}} </ion-card-title>
       <ion-card-subtitle color="secondary" class="text-center hide-sm">
-        Discover the cheapest way to get anywhere combining
-        plane,
-        train, bus and rideshare</ion-card-subtitle>
+        {{'MainMessage' | translate}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-grid>
         <ion-row class="input">
           <ion-col size="14" size-md="6">
             <ion-item class="pointInpt">
-              <ion-label position="floating" color="secondary"><b>From:</b></ion-label>
+              <ion-label position="floating" color="secondary"><b>{{'DISCOVER.From' | translate}}</b></ion-label>
               <ion-input clearInput (ionChange)="onStartPointSearchChange($event)" [(ngModel)]="startPointCity.name">
               </ion-input>
             </ion-item>
@@ -58,7 +52,7 @@
 
           <ion-col size="14" size-md="6">
             <ion-item class="pointInpt">
-              <ion-label position="floating" color="secondary"><b>To:</b></ion-label>
+              <ion-label position="floating" color="secondary"><b>{{'DISCOVER.To' | translate}}</b></ion-label>
               <ion-input clearInput (ionChange)="onEndPointSearchChange($event)" [(ngModel)]="endPointCity.name">
               </ion-input>
             </ion-item>
@@ -73,10 +67,10 @@
         </ion-row>
         <ion-row>
           <ion-col class="buttons" size-xs="12" offset-xs="0" offset="2" size-md="8" offset-md="2">
-            <ion-button size="small" fill="solid" type="button" (click)="onClearAll()" color="secondary">Clear
+            <ion-button size="small" fill="solid" type="button" (click)="onClearAll()" color="secondary">{{'DISCOVER.Clear' | translate}}
             </ion-button>
             <ion-button size="small" fill="solid" type="button" color="primary" routerDirection="forward"
-              routerLink="/places/tabs/discover/offer" (click)="searchPath()">Let's go!</ion-button>
+              routerLink="/places/tabs/discover/offer" (click)="searchPath()">{{'DISCOVER.Submit' | translate}}</ion-button>
 
             <!--  <div class="text-center">
               <ion-button size="small" fill="solid" type="button" (click)="onClearAll()" color="secondary">Clear

@@ -10,11 +10,16 @@ ion-title , p.title{
   font-family: Lato, sans-serif;
   font-style: italic;
 }
-
 p.title{
-  display: flex;
+
+  font-size: 0.7rem
 }
 
+
+.select{
+    --background: var(--ion-color-primary);
+    --color: white;
+}
 
 ion-card-title,
 ion-card-subtitle {
@@ -27,8 +32,8 @@ ion-img {
  height: auto;
   object-fit: contain;
 }
-ion-row.input{
 
+ion-row.input{
   --ion-grid-columns: 14;
 }
 
@@ -43,9 +48,12 @@ ion-row.input{
     display: none;
   }
 }
+
+
 .item-has-focus {
   --highlight-background: var(--ion-color-primary);
 }
+
 ion-input {
   --padding-start: 1rem;
   --padding-top: 0.1rem;
@@ -55,6 +63,7 @@ ion-input {
 ion-item.pointInput {
   --background: rgba(255, 72, 0, 0.1);
 }
+
 ion-label {
   --color: var(--ion-color-secondary);
 }
