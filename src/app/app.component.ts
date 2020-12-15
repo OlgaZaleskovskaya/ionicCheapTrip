@@ -25,4 +25,9 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
+  toContactPage(){
+    console.log('to contact page');
+
+  }
 }

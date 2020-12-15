@@ -35,18 +35,16 @@
           <mat-accordion>
             <mat-expansion-panel>
               <mat-expansion-panel-header expandedHeight="*" collapsedHeight="*">
-          <!--       <mat-panel-title>
-
-
-                  <p> {{path.routeType}} </p>
-                </mat-panel-title> -->
+                <mat-panel-title>
+                  <p> <span *ngFor="let icon of path.icons" [innerHTML]="icon"></span></p>
+                </mat-panel-title>
 
 
 
                 <mat-panel-description>
-<!-- 
-                  <p> {{path.routeType}} </p> -->
-                  <p class="city"> <b>{{path.routeType}}:</b> &nbsp;<span *ngFor="let city of path.cities" class="city">{{city}}</span>
+
+                  <p class="city"> <b>{{path.routeType}}:</b> &nbsp;<span *ngFor="let city of path.cities"
+                      class="city">{{city}}</span>
 
                   <p> <span>{{path.duration_minutes}}</span> <span class="spacer">
                     </span>

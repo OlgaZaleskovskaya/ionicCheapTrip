@@ -1,19 +1,36 @@
 {
-  "DISCOVER": {
-    "Sitetitle": "Cheap Trip",
-    "MainSlogan": "Cheap Trip: Pay less, travell more",
-    "Submit": "Let'go",
-    "Clear": "Clear",
-    "MainMessage": "Discover the cheapest way  to get anywhere combining plane, train, bus and rideshare",
-    "From": "From:",
-    "To": "To:"
-  },
-
-  "NameError": "I am sure you must have a name!",
-  "SelectLanguage": "Select Language",
+    "DISCOVER": {
+      "Sitetitle": "CheapTrip.",
+      "MainSlogan": "Pay less, travel more",
+      "Submit": "Let's go",
+      "Clear": "Clear",
+      "MainMessage": "Discover the cheapest way  to get anywhere combining plane, train, bus and rideshare",
+      "From": "From:",
+      "To": "To:"
+    },
   
-  "OFFER": {
-    "NewSearch": "New Search",
-    "AvailablePaths": "AvailablePaths"
+    "NameError": "I am sure you must have a name!",
+    "SelectLanguage": "Select Language",
+    
+    "OFFER": {
+      "NewSearch": "New Search",
+      "AvailablePaths": "Available routes"
+    },
+
+    "ERRORS:SLEEPING_SERVER": {
+        "Header": " Oops!",
+        "Message": "Pss! Our server is sleeping now. Please come back later.",
+        "Button" : "Close"
+    },
+    "ERRORS:NO_RESULTS_FOR_SEARCH": {
+        "Header": " Unsupported!",
+        "Message": "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Try changing your request.",
+        "Button" : "Back"
+    },
+    "ERRORS:BRAWSER_NOT_SUPPORTED":{ 
+        "Header": " Oh No!",
+        "Message": " Sorry, we did not have time to adapt our application for the type of web browser you are using. But we managed to optimize it for Google Chrome ver. 86 or newest. We recommend trying it!",
+        "Button" : "Close"
+    }
+
   }
-}

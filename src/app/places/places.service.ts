@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { AlertController } from "@ionic/angular";
 import { BehaviorSubject, Observable, of, Subject, Subscription } from "rxjs";
-import { map, take } from "rxjs/operators";
+import { map, take, tap } from "rxjs/operators";
 import { HttpService } from "../http.service";
 import {
   ICity,
@@ -45,6 +45,40 @@ enum Icons {
   shuttle
   </span>`,
 }
+
+type ErrorType =
+  | "No info"
+  | "Server Error"
+  | "Brawser not supported"
+  | "Latin Letters";
+const errorsObject = new Map<
+  ErrorType,
+  {
+    header: string;
+    message: string;
+    button: string;
+  }
+>();
+
+errorsObject.set("Server Error", {
+  header: " Oops!",
+  message: "Pss! Our server is sleeping now. Please come back later.",
+  button: "Close",
+});
+errorsObject.set("No info", {
+  header: " Oh No!",
+  message:
+    "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Try changing your request.",
+  button: "Back",
+});
+
+errorsObject.set("Latin Letters", {
+  header: " Oh No!",
+  message:
+    "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Only Latin letters are permitted",
+  button: "Back",
+});
+
 const transportIconMap = new Map();
 /* transportIconMap.set("Bus", "../../assets/images/transport/bus.png");
 transportIconMap.set("Train", "../../assets/images/transport/train.png");
@@ -85,11 +119,33 @@ export class PlacesService {
   }
 
   getStartPointAutocomplete(str: string): Observable<ICity[]> {
-    return this.getCitiesAutocomplete(str);
+    return this.getCitiesAutocomplete(str).pipe(
+      tap((res) => {
+        var re = /^[A-Za-z0-9]+$/;
+
+        if(!str.match(re)){
+          this.errorHandler("Latin Letters");
+
+        } else  if (res.length == 0) {
+          this.errorHandler("No info");
+        }
+      })
+    );
   }
 
   getEndPointAutocomplete(str: string): Observable<ICity[]> {
-    return this.getCitiesAutocomplete(str);
+    return this.getCitiesAutocomplete(str).pipe(
+      tap((res) => {
+        var re = /^[A-Za-z0-9]+$/;
+
+        if(!str.match(re)){
+          this.errorHandler("Latin Letters");
+
+        } else  if (res.length == 0) {
+          this.errorHandler("No info");
+        }
+      })
+    );
   }
 
   getPaths(startPoint: ICity, endPoint: ICity): void {
@@ -121,17 +177,18 @@ export class PlacesService {
       )
       .subscribe((paths) => {
         this.paths = paths;
-
         if (paths.length === 0) {
-          this.errorHandler();
+          this.errorHandler("No info");
           this.cleanPathsSubj$.next(true);
+          this.pathsSubj$.next([]);
           return;
         } else {
           this.pathsSubj$.next(this.paths);
         }
       }),
       (_error) => {
-        this.errorHandler();
+        this.errorHandler("Server Error");
+        this.pathsSubj$.next([]);
       };
   }
 
@@ -139,15 +196,14 @@ export class PlacesService {
     return this.currentPaths.find((p) => p.routeType === type);
   }
 
-  private errorHandler() {
-    console.log("error");
+  private errorHandler(type: ErrorType) {
     this.alertCtrl
       .create({
-        header: "An error occurred!",
-        message: "No information fetched. Please try again later.",
+        header: errorsObject.get(type).header,
+        message: errorsObject.get(type).message,
         buttons: [
           {
-            text: "Okay",
+            text: errorsObject.get(type).button,
             handler: () => {
               this.router.navigate(["/places/tabs/discover"]);
             },
@@ -211,7 +267,7 @@ export class PlacesService {
     const citiesList = this.allCities.filter((city) => {
       return city.name.toLowerCase().indexOf(str.toLowerCase()) > -1;
     });
-  
+
     const transformedList = citiesList.map((item, index, array) => {
       return {
         ...item,

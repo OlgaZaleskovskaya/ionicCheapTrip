@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
 
 import { TranslateService } from "@ngx-translate/core";
-import { NavController } from "@ionic/angular";
+import { AlertController, NavController } from "@ionic/angular";
 import { Subscription } from "rxjs";
 import { ICity } from "../places.model";
 
@@ -18,6 +18,10 @@ export class DiscoverPage implements OnInit, OnDestroy {
   startPointCities: ICity[] = [];
   endPointCities: ICity[] = [];
   cleanDataSubscription: Subscription;
+ 
+
+  @ViewChild('ionInputStartElRef', { read: ElementRef }) ionInputStartElRef: ElementRef;
+  @ViewChild('ionInputEndElRef', { read: ElementRef }) ionInputEndElRef: ElementRef;
 
   ignoreNextStartPointChange: boolean = false;
   ignoreNextEndPointChange: boolean = false;
@@ -27,7 +31,8 @@ export class DiscoverPage implements OnInit, OnDestroy {
   constructor(
     private placesSrv: PlacesService,
     private navCtrl: NavController,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private alertCtrl: AlertController,
   ) {
     translate.addLangs(["en", "ru"]);
     translate.setDefaultLang("en");
@@ -64,6 +69,7 @@ export class DiscoverPage implements OnInit, OnDestroy {
         this.startPointCitiesAvailable = true;
       } else {
         this.startPointCitiesAvailable = false;
+        this.ionInputStartElRef.nativeElement.querySelector('input').value = '';
       }
     });
   }
@@ -85,6 +91,9 @@ export class DiscoverPage implements OnInit, OnDestroy {
         this.endPointCitiesAvailable = true;
       } else {
         this.endPointCitiesAvailable = false;
+        this.ionInputEndElRef.nativeElement.querySelector('input').value = '';
+
+       
       }
     });
   }
@@ -104,6 +113,7 @@ export class DiscoverPage implements OnInit, OnDestroy {
   }
 
   onClearStartPoint() {
+    console.log('on clear start point');
     this.startPointCity = { id: -1, name: "" };
     this.ignoreNextStartPointChange = true;
     this.startPointCitiesAvailable = false;
@@ -127,7 +137,9 @@ export class DiscoverPage implements OnInit, OnDestroy {
   }
 
   onSelectLang(lang: any) {
-    console.log("lang", lang);
+  
     this.translate.use(lang.detail.value);
   }
+
+  
 }

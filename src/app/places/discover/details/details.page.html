@@ -7,9 +7,7 @@
   <ion-list>
     <ion-item-sliding *ngFor="let way of ways" #slidingItem>
       <ion-item class="no-padding">
-        <ion-avatar slot="start">
-          <span class="icon" [innerHTML]="way.imgUrl"></span>
-        </ion-avatar>
+   
         <ion-label>
           <p> <span class="spacer"></span>{{way.transportation_type}}<span class="spacer"></span></p>
           <p>{{way.from}} <span class="spacer"></span>

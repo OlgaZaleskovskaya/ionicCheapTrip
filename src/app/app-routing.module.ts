@@ -5,6 +5,10 @@ const routes: Routes = [
   { path: '', redirectTo: 'places', pathMatch: 'full' },
 
   { path: 'places', loadChildren: () => import('./places/places.module').then(m => m.PlacesPageModule) },
+  {
+    path: 'contact',
+    loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule)
+  },
   
 
   

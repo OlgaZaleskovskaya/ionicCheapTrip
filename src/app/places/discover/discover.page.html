@@ -1,41 +1,42 @@
 <ion-toolbar color="primary">
   <ion-buttons slot="start">
-    <ion-menu-button menu="m1"></ion-menu-button>
+  <!--   <ion-menu-button menu="m1"></ion-menu-button> -->
+    <ion-menu-button></ion-menu-button>
   </ion-buttons>
   <ion-buttons class="select" slot="end">
     <ion-item  class="select" lines="none">
       <!--   <ion-icon name="checkbox-outline" slot="start"></ion-icon>
    <ion-label>{{'SelectLanguage' | translate}}</ion-label> -->
       <ion-select value="en" class="select" interface="popover" (ionChange)="onSelectLang($event)">
-        <ion-select-option value="en">Eng</ion-select-option>
+        <ion-select-option value="en">En</ion-select-option>
         <ion-select-option value="ru">Ru</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-buttons>
 
-  <ion-title class="hide-xs"> {{'DISCOVER.MainSlogan' | translate | uppercase}}</ion-title>
-  <p class="title hide-sm">{{'DISCOVER.MainSlogan' | translate | uppercase}}</p>
+  <ion-title class="hide-xs">
+     <span [ngStyle]="{'padding-right':'13px'}" >CheapTrip. </span>  {{'DISCOVER.MainSlogan' | translate }}</ion-title>
+  <p class="title hide-sm" ><span [ngStyle]="{'padding-right':'13px'}">CheapTrip.</span>{{'DISCOVER.MainSlogan' | translate }}</p>
 
 
 
 </ion-toolbar>
 <ion-content>
-
-
   <ion-card>
     <ion-card-header>
       <ion-card-title color="secondary" class="text-center hide-xs">{{'DISCOVER.MainMessage' | translate}} </ion-card-title>
       <ion-card-subtitle color="secondary" class="text-center hide-sm">
-        {{'MainMessage' | translate}}</ion-card-subtitle>
+        {{'DISCOVER.MainMessage' | translate}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-grid>
         <ion-row class="input">
-          <ion-col size="14" size-md="6">
+          <ion-col size="14" size-md="7">
             <ion-item class="pointInpt">
               <ion-label position="floating" color="secondary"><b>{{'DISCOVER.From' | translate}}</b></ion-label>
-              <ion-input clearInput (ionChange)="onStartPointSearchChange($event)" [(ngModel)]="startPointCity.name">
+              <ion-input #ionInputStartElRef clearInput (ionChange)="onStartPointSearchChange($event)" [(ngModel)]="startPointCity.name">
               </ion-input>
+              
             </ion-item>
             <ion-item class="autocomplete" *ngIf="startPointCitiesAvailable">
               <ion-list style="width: 100%; max-height: 200px; overflow-y: scroll;" lines="none">
@@ -45,15 +46,15 @@
               </ion-list>
             </ion-item>
           </ion-col>
-
+<!-- 
           <ion-col class="hide-xs" size-md="2">
             <ion-img class="logo" src="../../../assets/logo.jpg"></ion-img>
-          </ion-col>
+          </ion-col> -->
 
-          <ion-col size="14" size-md="6">
+          <ion-col size="14" size-md="7">
             <ion-item class="pointInpt">
               <ion-label position="floating" color="secondary"><b>{{'DISCOVER.To' | translate}}</b></ion-label>
-              <ion-input clearInput (ionChange)="onEndPointSearchChange($event)" [(ngModel)]="endPointCity.name">
+              <ion-input #ionInputEndElRef clearInput (ionChange)="onEndPointSearchChange($event)" [(ngModel)]="endPointCity.name">
               </ion-input>
             </ion-item>
             <ion-item class="autocomplete" *ngIf="endPointCitiesAvailable">
@@ -80,7 +81,8 @@
             </div> -->
           </ion-col>
         </ion-row>
-        <ion-row class="hide-sm">
+       <!--  <ion-row class="hide-sm"> -->
+          <ion-row >
           <ion-col size="6" offset="3">
             <ion-img class="logo" src="../../../assets/logo.jpg"></ion-img>
           </ion-col>

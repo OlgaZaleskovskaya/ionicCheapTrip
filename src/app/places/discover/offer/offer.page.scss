@@ -11,6 +11,11 @@ mat-header {
 mat-panel-title {
   p {
     color: var(--ion-color-primary);
+    display: flex;
+    flex-direction: column;
+    span{
+      display: block;
+    }
   }
 }
 .mat-expansion-panel-header {

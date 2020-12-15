@@ -1,17 +1,34 @@
 {
-  "DISCOVER": {
-    "Sitetitle": "Cheap Trip",
-    "MainSlogan": "Cheap Trip : Меньше платишь - дальше едешь",
-    "Submit": "Поехали",
-    "Clear": "Очистить",
-    "MainMessage": "Найди свой путь  в любое место, комбинируя разные виды транспорта, с наименьшими затратами",
-
-    "From": "От:",
-    "To": "До:"
+    "DISCOVER": {
+      "Sitetitle": "CheapTrip.",
+      "MainSlogan": "Плати меньше, посети больше",
+      "Submit": "Поехали",
+      "Clear": "Очистить",
+      "MainMessage": "Discover the cheapest way  to get anywhere combining plane, train, bus and rideshare",
+      "From": "Откуда:",
+      "To": "Куда:"
+    },
+  
+    "NameError": "I am sure you must have a name!",
+    "SelectLanguage": "Выбрать язык",
+    
+    "OFFER": {
+      "NewSearch": "Новый поиск",
+      "AvailablePaths": "Варианты маршрутов"
+    },
+    "ERRORS:SLEEPING_SERVER": {
+      "Header": " Oops!",
+      "Message": "Pss! Our server is sleeping now. Please come back later.",
+      "Button" : "Close"
   },
-  "OFFER": {
-    "AvailablePaths": "Доступные маршруты",
-    "NewSearch": "Новый поиск"
+  "ERRORS:NO_RESULTS_FOR_SEARCH": {
+      "Header": " Unsupported!",
+      "Message": "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Try changing your request.",
+      "Button" : "Back"
   },
-  "NameError": "Ошибочка вышла"
-}
+  "ERRORS:BRAWSER_NOT_SUPPORTED":{ 
+      "Header": " Oh No!",
+      "Message": " Sorry, we did not have time to adapt our application for the type of web browser you are using. But we managed to optimize it for Google Chrome ver. 86 or newest. We recommend trying it!",
+      "Button" : "Close"
+  }
+  }

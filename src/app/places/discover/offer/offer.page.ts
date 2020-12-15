@@ -28,7 +28,11 @@ export class OfferPage implements OnInit {
       this.endPointCity = this.placesSrv.endPointCity;
       this.routs = res as Array<any>;
       this.routs = this.routs.map((rout: any) => {
-        return { ...rout, cities: this.getCities(rout) };
+        return {
+          ...rout,
+          cities: this.getCities(rout),
+          icons: this.getTransportTypes(rout),
+        };
       });
       this.isLoading = false;
     });
@@ -39,14 +43,20 @@ export class OfferPage implements OnInit {
   }
 
   private getCities(rout: { direct_paths: Array<any> }): any {
-    const cities = [];
     const citiesSet = new Set<string>();
-
     rout.direct_paths.forEach((r: { from: string; to: string }) => {
       citiesSet.add(r.from);
       citiesSet.add(r.to);
     });
-    console.log("cities", citiesSet);
     return Array.from(citiesSet);
+  }
+
+  private getTransportTypes(rout: { direct_paths: Array<any> }): any {
+  
+    
+    const transportIcons = rout.direct_paths.map((r : {imgUrl: string}) => {
+      return r.imgUrl;
+    }); 
+    return transportIcons;
   }
 }
