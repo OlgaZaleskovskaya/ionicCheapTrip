@@ -1,36 +1,58 @@
 {
-    "DISCOVER": {
-      "Sitetitle": "CheapTrip.",
-      "MainSlogan": "Pay less, travel more",
-      "Submit": "Let's go",
-      "Clear": "Clear",
-      "MainMessage": "Discover the cheapest way  to get anywhere combining plane, train, bus and rideshare",
-      "From": "From:",
-      "To": "To:"
-    },
-  
-    "NameError": "I am sure you must have a name!",
-    "SelectLanguage": "Select Language",
-    
-    "OFFER": {
-      "NewSearch": "New Search",
-      "AvailablePaths": "Available routes"
-    },
+  "DISCOVER": {
+    "Sitetitle": "CheapTrip.",
+    "MainSlogan": "Pay less, travel more",
+    "Submit": "Let's go",
+    "Clear": "Clear",
+    "MainMessage": "Discover the cheapest way  to get anywhere combining plane, train, bus and rideshare",
+    "From": "From:",
+    "To": "To:",
+    "Discover": "Discover",
+    "MultiCity": "MultiCity"
+  },
 
-    "ERRORS:SLEEPING_SERVER": {
-        "Header": " Oops!",
-        "Message": "Pss! Our server is sleeping now. Please come back later.",
-        "Button" : "Close"
-    },
-    "ERRORS:NO_RESULTS_FOR_SEARCH": {
-        "Header": " Unsupported!",
-        "Message": "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Try changing your request.",
-        "Button" : "Back"
-    },
-    "ERRORS:BRAWSER_NOT_SUPPORTED":{ 
-        "Header": " Oh No!",
-        "Message": " Sorry, we did not have time to adapt our application for the type of web browser you are using. But we managed to optimize it for Google Chrome ver. 86 or newest. We recommend trying it!",
-        "Button" : "Close"
+  "NameError": "I am sure you must have a name!",
+  "SelectLanguage": "Select Language",
+
+  "OFFER": {
+    "NewSearch": "New Search",
+    "AvailablePaths": "Available routes"
+  },
+
+  "ERRORS:SLEEPING_SERVER": {
+    "Header": " Oops!",
+    "Message": "Pss! Our server is sleeping now. Please come back later.",
+    "Button": "Close"
+  },
+  "ERRORS:NO_RESULTS_FOR_SEARCH": {
+    "Header": " Unsupported!",
+    "Message": "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Try changing your request.",
+    "Button": "Back"
+  },
+  "ERRORS:BRAWSER_NOT_SUPPORTED": {
+    "Header": " Oh No!",
+    "Message": " Sorry, we did not have time to adapt our application for the type of web browser you are using. But we managed to optimize it for Google Chrome ver. 86 or newest. We recommend trying it!",
+    "Button": "Close"
+  },
+  "ERRORS:LATIN_CHARACTERES": {
+    "Header": "Only Latin Characteres!",
+    "Message": "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Only Latin characteres are permitted.",
+    "Button": "Close"
+  },
+  "CONTACT": {
+    "contact": "Contacts",
+    "ROMAN": {
+      "name": "Roman",
+      "familyName": "Mantelmakher",
+      "position": "Founder & CEO"
     }
-
+  },
+  "HOME": {
+    "home": "home"
+  },
+  "ROUT_TYPE": {
+    "Ground route": "Ground route",
+    "Mixed route": "Mixed route",
+    "Flying route": "Flight"
   }
+}

@@ -4,7 +4,9 @@ import { AlertController } from "@ionic/angular";
 import { BehaviorSubject, Observable, of, Subject, Subscription } from "rxjs";
 import { map, take, tap } from "rxjs/operators";
 import { HttpService } from "../http.service";
+import { TranslateService } from "@ngx-translate/core";
 import {
+  ErrorType,
   ICity,
   IFetchedPathDetails,
   IFetchedPaths,
@@ -46,39 +48,6 @@ enum Icons {
   </span>`,
 }
 
-type ErrorType =
-  | "No info"
-  | "Server Error"
-  | "Brawser not supported"
-  | "Latin Letters";
-const errorsObject = new Map<
-  ErrorType,
-  {
-    header: string;
-    message: string;
-    button: string;
-  }
->();
-
-errorsObject.set("Server Error", {
-  header: " Oops!",
-  message: "Pss! Our server is sleeping now. Please come back later.",
-  button: "Close",
-});
-errorsObject.set("No info", {
-  header: " Oh No!",
-  message:
-    "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Try changing your request.",
-  button: "Back",
-});
-
-errorsObject.set("Latin Letters", {
-  header: " Oh No!",
-  message:
-    "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Only Latin letters are permitted",
-  button: "Back",
-});
-
 const transportIconMap = new Map();
 /* transportIconMap.set("Bus", "../../assets/images/transport/bus.png");
 transportIconMap.set("Train", "../../assets/images/transport/train.png");
@@ -109,7 +78,8 @@ export class PlacesService {
   constructor(
     private httpSrv: HttpService,
     private alertCtrl: AlertController,
-    private router: Router
+    private router: Router,
+    public translate: TranslateService
   ) {}
 
   getAllCities() {
@@ -123,11 +93,10 @@ export class PlacesService {
       tap((res) => {
         var re = /^[A-Za-z0-9]+$/;
 
-        if(!str.match(re)){
-          this.errorHandler("Latin Letters");
-
-        } else  if (res.length == 0) {
-          this.errorHandler("No info");
+        if (!str.match(re)) {
+          this.errorHandler("LATIN_CHARACTERES");
+        } else if (res.length == 0) {
+          this.errorHandler("NO_RESULTS_FOR_SEARCH");
         }
       })
     );
@@ -138,11 +107,10 @@ export class PlacesService {
       tap((res) => {
         var re = /^[A-Za-z0-9]+$/;
 
-        if(!str.match(re)){
-          this.errorHandler("Latin Letters");
-
-        } else  if (res.length == 0) {
-          this.errorHandler("No info");
+        if (!str.match(re)) {
+          this.errorHandler("LATIN_CHARACTERES");
+        } else if (res.length == 0) {
+          this.errorHandler("NO_RESULTS_FOR_SEARCH");
         }
       })
     );
@@ -178,7 +146,7 @@ export class PlacesService {
       .subscribe((paths) => {
         this.paths = paths;
         if (paths.length === 0) {
-          this.errorHandler("No info");
+          this.errorHandler("NO_RESULTS_FOR_SEARCH");
           this.cleanPathsSubj$.next(true);
           this.pathsSubj$.next([]);
           return;
@@ -187,7 +155,7 @@ export class PlacesService {
         }
       }),
       (_error) => {
-        this.errorHandler("Server Error");
+        this.errorHandler("SLEEPING_SERVER");
         this.pathsSubj$.next([]);
       };
   }
@@ -199,11 +167,11 @@ export class PlacesService {
   private errorHandler(type: ErrorType) {
     this.alertCtrl
       .create({
-        header: errorsObject.get(type).header,
-        message: errorsObject.get(type).message,
+        header: this.translate.instant(`ERRORS:${type}.Header`),
+        message: this.translate.instant(`ERRORS:${type}.Message`),
         buttons: [
           {
-            text: errorsObject.get(type).button,
+            text: this.translate.instant(`ERRORS:${type}.Button`),
             handler: () => {
               this.router.navigate(["/places/tabs/discover"]);
             },
@@ -219,6 +187,7 @@ export class PlacesService {
     paths: IFetchedPathDetails[]
   ): IFetchedPathDetails[] {
     const transformed = paths.map((path) => {
+    
       return {
         ...path,
         duration_minutes: this.transformDuration(
@@ -233,14 +202,17 @@ export class PlacesService {
   }
 
   private transformPath(path: IFetchedPaths): IFetchedPaths {
+    console.log("path", path );
     const transformedPath = {
       ...path,
       duration_minutes: this.transformDuration(
-        path.duration_minutes.toString()
+        path.duration_minutes.toString(),
+      
       ),
       euro_price: this.transformPrice(path.euro_price.toString()),
       direct_paths: this.transformPathDetails(path.direct_paths),
-      imgUrl: iconMap.get(path.routeType),
+      imgUrl: iconMap.get(path.routeType), 
+      routeType: this.translate.instant(`ROUT_TYPE.${path.routeType}`),
     };
     return transformedPath;
   }

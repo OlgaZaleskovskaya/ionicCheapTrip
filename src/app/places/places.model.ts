@@ -1,29 +1,41 @@
 export interface ICity {
-    id: number;
-   name: string;
+  id: number;
+  name: string;
 }
-export interface IFetchedPaths{
-    direct_paths:IFetchedPathDetails[]
-   duration_minutes:  string | number,
-   euro_price:  string | number,
-   routeType: RouteType,
-   imgUrl?: string
-
-}
-
-export interface IFetchedPathDetails{
-    id:  string | number,
-    transportation_type: TransportationType,
-    euro_price: string | number,
-    duration_minutes:  string | number,
-    from: string,
-    from_id:  string | number,
-    to: string,
-    to_id:  string | number,
-    icon?: string,
-    imgUrl?: string
+export interface IFetchedPaths {
+  direct_paths: IFetchedPathDetails[];
+  duration_minutes: string | number;
+  euro_price: string | number;
+  routeType: RouteType;
+  imgUrl?: string;
 }
 
-export type TransportationType = 'Bus'|'Flight'|'Train'|'Ride Share'|'Car Drive'|'Walk'|'Taxi'| 'Shuttle';
+export interface IFetchedPathDetails {
+  id: string | number;
+  transportation_type: TransportationType;
+  euro_price: string | number;
+  duration_minutes: string | number;
+  from: string;
+  from_id: string | number;
+  to: string;
+  to_id: string | number;
+  icon?: string;
+  imgUrl?: string;
+}
 
-export type RouteType = 'Ground route' | 'Mixed route' | 'Flying route';
+export type TransportationType =
+  | "Bus"
+  | "Flight"
+  | "Train"
+  | "Ride Share"
+  | "Car Drive"
+  | "Walk"
+  | "Taxi"
+  | "Shuttle";
+
+export type RouteType = "Ground route" | "Mixed route" | "Flying route";
+export type ErrorType =
+  | "SLEEPING_SERVER"
+  | "NO_RESULTS_FOR_SEARCH"
+  | "BRAWSER_NOT_SUPPORTED"
+  | "LATIN_CHARACTERES";

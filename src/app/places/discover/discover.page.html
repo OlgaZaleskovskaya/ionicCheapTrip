@@ -7,7 +7,7 @@
     <ion-item  class="select" lines="none">
       <!--   <ion-icon name="checkbox-outline" slot="start"></ion-icon>
    <ion-label>{{'SelectLanguage' | translate}}</ion-label> -->
-      <ion-select value="en" class="select" interface="popover" (ionChange)="onSelectLang($event)">
+      <ion-select [value]="language" class="select" interface="popover" (ionChange)="onSelectLang($event)">
         <ion-select-option value="en">En</ion-select-option>
         <ion-select-option value="ru">Ru</ion-select-option>
       </ion-select>

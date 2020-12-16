@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 
 import { TranslateService } from "@ngx-translate/core";
 import { AlertController, NavController } from "@ionic/angular";
@@ -18,11 +24,13 @@ export class DiscoverPage implements OnInit, OnDestroy {
   startPointCities: ICity[] = [];
   endPointCities: ICity[] = [];
   cleanDataSubscription: Subscription;
- 
 
-  @ViewChild('ionInputStartElRef', { read: ElementRef }) ionInputStartElRef: ElementRef;
-  @ViewChild('ionInputEndElRef', { read: ElementRef }) ionInputEndElRef: ElementRef;
+  @ViewChild("ionInputStartElRef", { read: ElementRef })
+  ionInputStartElRef: ElementRef;
+  @ViewChild("ionInputEndElRef", { read: ElementRef })
+  ionInputEndElRef: ElementRef;
 
+  language: string = "en";
   ignoreNextStartPointChange: boolean = false;
   ignoreNextEndPointChange: boolean = false;
   startPointCity: ICity = { id: -1, name: "" };
@@ -32,15 +40,20 @@ export class DiscoverPage implements OnInit, OnDestroy {
     private placesSrv: PlacesService,
     private navCtrl: NavController,
     public translate: TranslateService,
-    private alertCtrl: AlertController,
+    private alertCtrl: AlertController
   ) {
     translate.addLangs(["en", "ru"]);
     translate.setDefaultLang("en");
   }
 
   ngOnInit() {
-    let language = this.translate.getBrowserLang();
-  
+    const lang = this.translate.getBrowserLang();
+
+    if (lang == "ru") {
+      this.translate.use("ru");
+      this.language = "ru";
+    }
+
     this.placesSrv.getAllCities();
 
     this.cleanDataSubscription = this.placesSrv.cleanPathsSubj$.subscribe(
@@ -69,7 +82,7 @@ export class DiscoverPage implements OnInit, OnDestroy {
         this.startPointCitiesAvailable = true;
       } else {
         this.startPointCitiesAvailable = false;
-        this.ionInputStartElRef.nativeElement.querySelector('input').value = '';
+        this.ionInputStartElRef.nativeElement.querySelector("input").value = "";
       }
     });
   }
@@ -91,9 +104,7 @@ export class DiscoverPage implements OnInit, OnDestroy {
         this.endPointCitiesAvailable = true;
       } else {
         this.endPointCitiesAvailable = false;
-        this.ionInputEndElRef.nativeElement.querySelector('input').value = '';
-
-       
+        this.ionInputEndElRef.nativeElement.querySelector("input").value = "";
       }
     });
   }
@@ -113,7 +124,7 @@ export class DiscoverPage implements OnInit, OnDestroy {
   }
 
   onClearStartPoint() {
-    console.log('on clear start point');
+    console.log("on clear start point");
     this.startPointCity = { id: -1, name: "" };
     this.ignoreNextStartPointChange = true;
     this.startPointCitiesAvailable = false;
@@ -137,9 +148,6 @@ export class DiscoverPage implements OnInit, OnDestroy {
   }
 
   onSelectLang(lang: any) {
-  
     this.translate.use(lang.detail.value);
   }
-
-  
 }

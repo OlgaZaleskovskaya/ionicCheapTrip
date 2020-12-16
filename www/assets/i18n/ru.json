@@ -1,34 +1,59 @@
 {
-    "DISCOVER": {
-      "Sitetitle": "CheapTrip.",
-      "MainSlogan": "Плати меньше, посети больше",
-      "Submit": "Поехали",
-      "Clear": "Очистить",
-      "MainMessage": "Discover the cheapest way  to get anywhere combining plane, train, bus and rideshare",
-      "From": "Откуда:",
-      "To": "Куда:"
-    },
-  
-    "NameError": "I am sure you must have a name!",
-    "SelectLanguage": "Выбрать язык",
-    
-    "OFFER": {
-      "NewSearch": "Новый поиск",
-      "AvailablePaths": "Варианты маршрутов"
-    },
-    "ERRORS:SLEEPING_SERVER": {
-      "Header": " Oops!",
-      "Message": "Pss! Our server is sleeping now. Please come back later.",
-      "Button" : "Close"
+  "DISCOVER": {
+    "Sitetitle": "CheapTrip.",
+    "MainSlogan": "Плати меньше, посети больше",
+    "Submit": "Поехали",
+    "Clear": "Очистить",
+    "MainMessage": "Discover the cheapest way  to get anywhere combining plane, train, bus and rideshare",
+    "From": "Откуда:",
+    "To": "Куда:",
+    "Discover": "Поиск",
+    "MultiCity" : "Сложный Маршрут"
+  },
+
+  "NameError": "I am sure you must have a name!",
+  "SelectLanguage": "Выбрать язык",
+
+  "OFFER": {
+    "NewSearch": "Новый поиск",
+    "AvailablePaths": "Варианты маршрутов"
+  },
+  "ERRORS:SLEEPING_SERVER": {
+    "Header": " Упс!",
+    "Message": "Тсс! Сервер отдыхает. Заходите завтра.",
+    "Button": "Закрыть"
   },
   "ERRORS:NO_RESULTS_FOR_SEARCH": {
-      "Header": " Unsupported!",
-      "Message": "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Try changing your request.",
-      "Button" : "Back"
+    "Header": " Не поддерживается!",
+    "Message": "Прости. Нету у нас такой информацйии. Подумай надо ли тебе туда ехать.",
+    "Button": "Назад"
   },
-  "ERRORS:BRAWSER_NOT_SUPPORTED":{ 
-      "Header": " Oh No!",
-      "Message": " Sorry, we did not have time to adapt our application for the type of web browser you are using. But we managed to optimize it for Google Chrome ver. 86 or newest. We recommend trying it!",
-      "Button" : "Close"
+  "ERRORS:BRAWSER_NOT_SUPPORTED": {
+    "Header": " О Нет!",
+    "Message": " Прости. Мы не поддерживаем это старый мерзкий браузер. Переходи на новый - Google Chrome ver. 86 например. не пожалеешь!",
+    "Button": "Закрыть"
+  },
+  "ERRORS:LATIN_CHARACTERES": {
+    "Header": " O нет!",
+    "Message": "Прости. Мы пока работает только с латинскими символами. Но обещаем исправиться вскоре.",
+    "Button": "Закрыть"
+  },
+  "CONTACT": {
+    "contact": "Наши контакты",
+    "ROMAN": {
+      "name": "Роман",
+      "familyName": "Mантельмахер",
+      "position": "Основатель  & Генеральный директор"
+    }
+  },
+
+  "HOME": {
+    "home": "Домой"
   }
+  ,
+  "ROUT_TYPE": {
+    "Ground route": "Наземный маршрут",
+    "Mixed route": "Смешанный маршрут",
+    "Flying route": "Перелет"
   }
+}

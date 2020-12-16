@@ -42,9 +42,9 @@
         </ion-header>
         <ion-list id="inbox-list">
           <ion-menu-toggle >
-            <ion-item (click)="toContactPage()" lines="none" detail="false">
-              <ion-icon slot="start" name="exit"></ion-icon>
-              <ion-label>Something</ion-label>
+            <ion-item (click)="toContactPage()" lines="none" detail="false"  routerLink="/">
+              <ion-icon slot="start" name="home"></ion-icon>
+              <ion-label>{{'HOME.home' | translate}}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
@@ -52,7 +52,7 @@
           <ion-menu-toggle >
             <ion-item lines="none"  routerLink="/contact" button>
               <ion-icon name="call" slot="start"></ion-icon>
-              <ion-label>Contact</ion-label>
+              <ion-label>{{'CONTACT.contact' | translate}}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
