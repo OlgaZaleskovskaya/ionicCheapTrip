@@ -1,34 +1,5 @@
 <ion-app>
-  <!--  <ion-menu side="start" menuId="m1" contentId="main"> 
 
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>CheapTrip</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content id="main">
-      <ion-list>
-        <ion-menu-toggle>
-          <ion-item lines="none">
-            <ion-icon name="business" slot="start"></ion-icon>
-            <ion-label>Discover routs</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/contacts" (click)="toContactPage()">
-            <ion-icon (click)="toContactPage()" name="exit" slot="start"></ion-icon>
-            <ion-label>Contact us</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-
- 
-
-
-  <ion-router-outlet main></ion-router-outlet> -->
 
 
   <ion-split-pane contentId="main-content" when="(min-width: 2000px)">
@@ -41,16 +12,16 @@
           </ion-toolbar>
         </ion-header>
         <ion-list id="inbox-list">
-          <ion-menu-toggle >
-            <ion-item (click)="toContactPage()" lines="none" detail="false"  routerLink="/">
+          <ion-menu-toggle>
+            <ion-item (click)="toContactPage()" lines="none" detail="false" routerLink="/">
               <ion-icon slot="start" name="home"></ion-icon>
               <ion-label>{{'HOME.home' | translate}}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
         <ion-list id="labels-list">
-          <ion-menu-toggle >
-            <ion-item lines="none"  routerLink="/contact" button>
+          <ion-menu-toggle>
+            <ion-item lines="none" routerLink="/contact" button>
               <ion-icon name="call" slot="start"></ion-icon>
               <ion-label>{{'CONTACT.contact' | translate}}</ion-label>
             </ion-item>
@@ -59,7 +30,7 @@
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
-
   </ion-split-pane>
+
 
 </ion-app>

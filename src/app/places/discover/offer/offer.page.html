@@ -15,8 +15,8 @@
   </div>
   <ion-grid *ngIf="!isLoading">
     <ion-row>
-      <ion-col size="3" offset="8">
-        <ion-button (click)="toSearchPage()" fill="clear">{{'OFFER.NewSearch' | translate}}</ion-button>
+      <ion-col size="6" offset="3">
+        <ion-button class="expand" color="secondary" expand="full" (click)="toSearchPage()" fill="solid">{{'OFFER.NewSearch' | translate}}</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -38,12 +38,8 @@
                 <mat-panel-title>
                   <p> <span *ngFor="let icon of path.icons" [innerHTML]="icon"></span></p>
                 </mat-panel-title>
-
-
-
                 <mat-panel-description>
-
-                  <p class="city"> <b>{{path.routeType}}:</b> &nbsp;<span *ngFor="let city of path.cities"
+                  <p class="city"><span *ngFor="let city of path.cities"
                       class="city">{{city}}</span>
 
                   <p> <span>{{path.duration_minutes}}</span> <span class="spacer">

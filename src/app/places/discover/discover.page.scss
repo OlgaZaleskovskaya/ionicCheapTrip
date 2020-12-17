@@ -12,13 +12,12 @@ ion-title , p.title{
 }
 p.title{
 
-  font-size: 0.7rem
 }
 
 
 .select{
-    --background: var(--ion-color-primary);
-    --color: white;
+  // --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary);
 }
 
 ion-card-title,

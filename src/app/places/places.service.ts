@@ -11,6 +11,7 @@ import {
   IFetchedPathDetails,
   IFetchedPaths,
   TransportationType,
+  transportIconMap,
 } from "./places.model";
 
 const iconMap = new Map();
@@ -18,47 +19,8 @@ iconMap.set("Ground route", "../../assets/images/groundWay.png");
 iconMap.set("Mixed route", "../../assets/images/mixedWay.png");
 iconMap.set("Flying route", "../../assets/images/flightWay.png");
 
-enum Icons {
-  FLIGHT = `<span class="material-icons">
-  flight
-  </span>`,
-  BUS = `<span class="material-icons">
-  directions_bus
-  </span>`,
-  TRAIN = `<span class="material-icons">
-  directions_railway
-  </span>`,
-  SUBWAY = `<span class="material-icons">
-  directions_subway
-  </span>`,
-  SHIP = `<span class="material-icons">
-  directions_boat
-  </span>`,
-  ONFOOT = `<span class="material-icons">
-  directions_walk
-  </span>`,
-  CAR = `<span class="material-icons">
-  directions_car
-  </span>`,
-  TAXI = `<span class="material-icons">
-  local_taxi
-  </span>`,
-  SHUTTLE = `<span class="material-icons">
-  shuttle
-  </span>`,
-}
 
-const transportIconMap = new Map();
-/* transportIconMap.set("Bus", "../../assets/images/transport/bus.png");
-transportIconMap.set("Train", "../../assets/images/transport/train.png");
-transportIconMap.set("Ride Share", "../../assets/images/transport/rideShare.png");
-transportIconMap.set("Taxi", "../../assets/images/transport/taxi.png");
-transportIconMap.set("Flight", "../../assets/images/transport/flight.png"); */
-transportIconMap.set("Bus", Icons.BUS);
-transportIconMap.set("Train", Icons.TRAIN);
-transportIconMap.set("Ride Share", Icons.CAR);
-transportIconMap.set("Taxi", Icons.TAXI);
-transportIconMap.set("Flight", Icons.FLIGHT);
+
 
 @Injectable({
   providedIn: "root",
@@ -195,6 +157,7 @@ export class PlacesService {
         ),
         euro_price: this.transformPrice(path.euro_price.toString()),
         imgUrl: transportIconMap.get(path.transportation_type),
+        transportation_type: this.translate.instant(`TRANSPORTATION_TYPE.${path.transportation_type}`)
       };
     });
 

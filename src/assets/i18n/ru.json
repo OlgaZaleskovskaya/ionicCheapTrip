@@ -55,5 +55,17 @@
     "Ground route": "Наземный маршрут",
     "Mixed route": "Смешанный маршрут",
     "Flying route": "Перелет"
+  },
+  "TRANSPORTATION_TYPE" : {
+    "Bus": "Автобус", 
+    "Ride Share": "КарШерринг",
+    "Flight": "Самолет",
+    "Car Ferry": "Авто Паром",
+    "Train": "Поезд",
+    "Taxi": "Такси",
+    "Shuttle": "Шаттл",
+    "Town Car": "Автомобиль",
+    "Car Drive": "Автомобиль",
+    "Walk": "Пeшком"
   }
 }

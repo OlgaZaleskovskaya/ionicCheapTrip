@@ -31,6 +31,14 @@ ion-button {
   width: 7rem;
 }
 
+
+ion-button.expand {
+  font-family: Lato, sans-serif;
+  font-style: italic;
+  width: auto;
+  
+}
+
 .spacer{
   flex: 1 1 auto;
 }

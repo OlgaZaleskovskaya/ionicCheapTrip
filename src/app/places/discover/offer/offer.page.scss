@@ -60,7 +60,8 @@ ion-label {
   p {
     display: flex;
     justify-content: space-around;
-    background-color: gainsboro;
+ 
     padding:1rem;
+    color: var(--ion-color-primary)
   }
 }
