@@ -1,19 +1,31 @@
-p{
-    display: flex;
+p {
+  display: flex;
 }
-span.spacer{
-    flex: 1 1 auto;
-    
-}
-
-.icon{
-    color: var( --ion-color-secondary);
+span.spacer {
+  flex: 1 1 auto;
 }
 
-.item-avatar  {     
-    width:100% !important;  
-    height : 100% !important;  
-    max-width: 40px !important;  //any size
-    max-height: 40px !important; //any size 
+.icon {
+  color: var(--ion-color-secondary);
+}
+
+.item-avatar {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 40px !important; //any size
+  max-height: 40px !important; //any size
+}
+ion-label {
+  p {
+    color: var(--ion-color-secondary);
+    span.currency {
+      color: var(--ion-color-primary);
+      display: inline-block;
+      border: 1px solid var(--ion-color-primary);
     }
- 
+  }
+  p.rout {
+    font-weight: bold;
+    color: #212121;
+  }
+}

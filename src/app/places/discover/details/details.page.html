@@ -9,17 +9,18 @@
       <ion-item class="no-padding">
    
         <ion-label>
-          <p> <span class="spacer"></span>{{way.transportation_type}}<span class="spacer"></span></p>
-          <p>{{way.from}} <span class="spacer"></span>
+          <p class="transport" > <span class="spacer"></span>{{way.transportation_type}}<span class="spacer"></span></p>
+         
+          <p class="rout">{{way.from}} <span class="spacer"></span>
             <ion-icon name="arrow-forward"></ion-icon><span class="spacer"></span>
             {{way.to}}
           </p>
           <p>
             <span>{{way.duration_minutes}}</span>
             <span class="spacer"></span>
-            <span>
-              <ion-badge color="primary">{{way.euro_price | currency:'EUR':'symbol':'1.2-2' }}</ion-badge>
-            </span>
+            <span class="currency">
+             {{way.euro_price | currency:'EUR':'symbol':'1.2-2' }}</span>
+           
 
           </p>
         </ion-label>

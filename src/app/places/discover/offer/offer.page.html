@@ -16,15 +16,15 @@
   <ion-grid *ngIf="!isLoading">
     <ion-row>
       <ion-col size="6" offset="3">
-        <ion-button class="expand" color="secondary" expand="full" (click)="toSearchPage()" fill="solid">{{'OFFER.NewSearch' | translate}}</ion-button>
+        <ion-button class="expand" color="secondary" expand="full" (click)="toSearchPage()" fill="solid">
+          {{'OFFER.NewSearch' | translate}}</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="12" size-sm="8" offset-sm="2">
         <ion-label>
           <p> <span>{{startPointCity.name}}</span><span class="spacer"></span>
-            <ion-icon name="arrow-forward-outline"></ion-icon><span
-              class="spacer"></span><span>{{endPointCity.name}}</span>
+            <ion-icon name="arrow-forward"></ion-icon><span class="spacer"></span><span>{{endPointCity.name}}</span>
           </p>
         </ion-label>
       </ion-col>
@@ -39,10 +39,10 @@
                   <p> <span *ngFor="let icon of path.icons" [innerHTML]="icon"></span></p>
                 </mat-panel-title>
                 <mat-panel-description>
-                  <p class="city"><span *ngFor="let city of path.cities"
-                      class="city">{{city}}</span>
-
-                  <p> <span>{{path.duration_minutes}}</span> <span class="spacer">
+                  <ul class="city">
+                    <li *ngFor="let city of path.cities"><span>{{city}}</span><ion-icon name="arrow-forward"></ion-icon></li>
+                  </ul>
+                  <p> <span class="time">{{path.duration_minutes}}</span> <span class="spacer">
                     </span>
                     <span>
                       <ion-badge color="primary">{{path.euro_price | currency:'EUR':'symbol':'1.2-2' }}</ion-badge>

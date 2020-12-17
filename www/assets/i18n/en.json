@@ -54,5 +54,17 @@
     "Ground route": "Ground route",
     "Mixed route": "Mixed route",
     "Flying route": "Flight"
+  },
+  "TRANSPORTATION_TYPE" : {
+    "Bus": "Bus", 
+    "Ride Share": "Ride Share",
+    "Flight": "Flight",
+    "Car Ferry": "Car Ferry",
+    "Train": "Train",
+    "Taxi": "Taxi",
+    "Shuttle": "jj",
+    "Town Car": "Town Car",
+    "Car Drive": "Car drive",
+    "Walk": "Walk"
   }
 }

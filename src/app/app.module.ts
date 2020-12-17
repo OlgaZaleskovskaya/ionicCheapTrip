@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
@@ -36,6 +37,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    CallNumber
   ],
   bootstrap: [AppComponent],
 })

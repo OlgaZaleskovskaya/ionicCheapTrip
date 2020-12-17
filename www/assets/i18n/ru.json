@@ -4,7 +4,8 @@
     "MainSlogan": "Плати меньше, посети больше",
     "Submit": "Поехали",
     "Clear": "Очистить",
-    "MainMessage": "Discover the cheapest way  to get anywhere combining plane, train, bus and rideshare",
+    "MainMessage": "Откройте для себя самый дешевый способ добраться куда угодно, сочетая самолет, поезд, автобус и поездку на автомобиле.",
+   
     "From": "Откуда:",
     "To": "Куда:",
     "Discover": "Поиск",
@@ -55,5 +56,17 @@
     "Ground route": "Наземный маршрут",
     "Mixed route": "Смешанный маршрут",
     "Flying route": "Перелет"
+  },
+  "TRANSPORTATION_TYPE" : {
+    "Bus": "Автобус", 
+    "Ride Share": "КарШерринг",
+    "Flight": "Самолет",
+    "Car Ferry": "Авто Паром",
+    "Train": "Поезд",
+    "Taxi": "Такси",
+    "Shuttle": "Шаттл",
+    "Town Car": "Автомобиль",
+    "Car Drive": "Автомобиль",
+    "Walk": "Пeшком"
   }
 }

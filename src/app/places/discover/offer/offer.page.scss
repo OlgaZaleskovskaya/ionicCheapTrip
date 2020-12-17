@@ -10,10 +10,10 @@ mat-header {
 }
 mat-panel-title {
   p {
-    color: var(--ion-color-primary);
+    color: var(--ion-color-secondary);
     display: flex;
     flex-direction: column;
-    span{
+    span {
       display: block;
     }
   }
@@ -26,42 +26,56 @@ mat-panel-title {
 mat-panel-description {
   flex-direction: column;
   width: 100%;
- 
-
   p {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    span.time {
+      color: #757575;
+    }
   }
-  p.city {
+  ul.city {
     font-size: 0.8rem;
-    display: inline-block;
+    //display: inline-block;
     width: 100%;
     color: var(--ion-color-secondary);
     font-weight: lighter;
     font-style: italic;
     white-space: normal;
-  line-height: 1.2;
-    
-  //  overflow: hidden;
-  //  text-overflow: ellipsis;
+    line-height: 1.2;
+    li {
+      display: inline;
+      ion-icon {
+        padding: 3px 4px 1px;
+      }
+    }
+    li:last-child {
+      ion-icon {
+        display: none;
+      }
+    }
+    //  overflow: hidden;
+    //  text-overflow: ellipsis;
   }
 }
 
-.city span:after {
+/* .city span:after {
   content: " > ";
   display: inline;
 }
 .city span:last-child:after {
   content: none;
-}
+} */
 
 ion-label {
   p {
     display: flex;
     justify-content: space-around;
- 
-    padding:1rem;
-    color: var(--ion-color-primary)
+    background-color: #ffccbc;
+    padding: 1rem;
+    color: #212121;
+    font-weight: bold;
+    padding: 0 1rem;
+    // color: var(--ion-color-primary);
   }
 }

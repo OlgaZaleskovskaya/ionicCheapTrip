@@ -18,8 +18,8 @@
       <ion-label>
         <h2>{{'CONTACT.ROMAN.name' | translate}} {{'CONTACT.ROMAN.familyName' | translate}}</h2>
         <h3>  {{'CONTACT.ROMAN.position' | translate}}</h3>
-        <p>+972-54-5779239</p>
-        <p>roman.mantelmakher@gmail.com</p>
+        <ion-button (click)="sendMailTo('+972-54-5779239')">+972-54-5779239</ion-button>
+        <p (click)="sendMailTo('roman.mantelmakher@gmail.com')">roman.mantelmakher@gmail.com</p>
       </ion-label>
     </ion-item>
   </ion-list>
