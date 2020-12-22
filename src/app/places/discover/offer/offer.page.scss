@@ -6,7 +6,7 @@ mat-accordion {
   width: 100%;
 }
 mat-header {
-  padding: 5px;
+  padding: 1px;
 }
 mat-panel-title {
   p {
@@ -35,18 +35,25 @@ mat-panel-description {
     }
   }
   ul.city {
-    font-size: 0.8rem;
-    //display: inline-block;
+   font-size: 0.8rem;
+ 
     width: 100%;
-    color: var(--ion-color-secondary);
-    font-weight: lighter;
+    color: #212121;
+   font-weight: bold;
     font-style: italic;
     white-space: normal;
     line-height: 1.2;
+    padding: 1px;
     li {
+
       display: inline;
+
       ion-icon {
-        padding: 3px 4px 1px;
+
+        //padding: 8px 2px 0px;
+        position: relative;
+        top: 0.1rem;
+        margin-left: 5px;
       }
     }
     li:last-child {

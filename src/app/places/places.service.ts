@@ -19,8 +19,165 @@ iconMap.set("Ground route", "../../assets/images/groundWay.png");
 iconMap.set("Mixed route", "../../assets/images/mixedWay.png");
 iconMap.set("Flying route", "../../assets/images/flightWay.png");
 
+const currencyArray = new Map<string, { name: string; rate: number }>();
+currencyArray.set("EUR", { name: "Euro", rate: 1 });
+currencyArray.set("USD", { name: "USD", rate: 0 });
+currencyArray.set("RUB", { name: "RUB", rate: 0 });
+currencyArray.set("RUB", { name: "RUB", rate: 0 });
 
-
+const curArray = `{
+      "EUR": {
+        "currencyName": "Euro",
+        "currencySymbol": "€",
+        "id": "EUR"
+      },
+      "USD": {
+        "currencyName": "United States Dollar",
+        "currencySymbol": "$",
+        "id": "USD"
+      },
+      "HUF": {
+        "currencyName": "Hungarian Forint",
+        "currencySymbol": "Ft",
+        "id": "HUF"
+      },
+      "MKD": {
+        "currencyName": "Macedonian Denar",
+        "currencySymbol": "ден",
+        "id": "MKD"
+      },
+      "RSD": {
+        "currencyName": "Serbian Dinar",
+        "currencySymbol": "Дин.",
+        "id": "RSD"
+      },
+      "SEK": {
+        "currencyName": "Swedish Krona",
+        "currencySymbol": "kr",
+        "id": "SEK"
+      },
+      "AMD": {
+        "currencyName": "Armenian Dram",
+        "id": "AMD"
+      },
+      "CZK": {
+        "currencyName": "Czech Koruna",
+        "currencySymbol": "Kč",
+        "id": "CZK"
+      },
+      "GEL": {
+        "currencyName": "Georgian Lari",
+        "id": "GEL"
+      },
+      "DKK": {
+        "currencyName": "Danish Krone",
+        "currencySymbol": "kr",
+        "id": "DKK"
+      },
+      "ILS": {
+        "currencyName": "Israeli New Sheqel",
+        "currencySymbol": "₪",
+        "id": "ILS"
+      },
+      "KZT": {
+        "currencyName": "Kazakhstani Tenge",
+        "currencySymbol": "лв",
+        "id": "KZT"
+      },
+      "RON": {
+        "currencyName": "Romanian Leu",
+        "currencySymbol": "lei",
+        "id": "RON"
+      },
+      "AZN": {
+        "currencyName": "Azerbaijani Manat",
+        "currencySymbol": "ман",
+        "id": "AZN"
+      },
+      "BYR": {
+        "currencyName": "Belarusian Ruble",
+        "currencySymbol": "p.",
+        "id": "BYR"
+      },
+      "BGN": {
+        "currencyName": "Bulgarian Lev",
+        "currencySymbol": "лв",
+        "id": "BGN"
+      },
+      "CAD": {
+        "currencyName": "Canadian Dollar",
+        "currencySymbol": "$",
+        "id": "CAD"
+      },
+      "ISK": {
+        "currencyName": "Icelandic Króna",
+        "currencySymbol": "kr",
+        "id": "ISK"
+      },
+      "JPY": {
+        "currencyName": "Japanese Yen",
+        "currencySymbol": "¥",
+        "id": "JPY"
+      },
+      "LVL": {
+        "currencyName": "Latvian Lats",
+        "currencySymbol": "Ls",
+        "id": "LVL"
+      },
+      "CHF": {
+        "currencyName": "Swiss Franc",
+        "currencySymbol": "Fr.",
+        "id": "CHF"
+      },
+      "MDL": {
+        "currencyName": "Moldovan Leu",
+        "id": "MDL"
+      },
+      "KGS": {
+        "currencyName": "Kyrgyzstani Som",
+        "currencySymbol": "лв",
+        "id": "KGS"
+      },
+      "NOK": {
+        "currencyName": "Norwegian Krone",
+        "currencySymbol": "kr",
+        "id": "NOK"
+      },
+      "PLN": {
+        "currencyName": "Polish Zloty",
+        "currencySymbol": "zł",
+        "id": "PLN"
+      },
+      "RUB": {
+        "currencyName": "Russian Ruble",
+        "currencySymbol": "руб",
+        "id": "RUB"
+      },
+      "TJS": {
+        "currencyName": "Tajikistani Somoni",
+        "id": "TJS"
+      },
+      "UAH": {
+        "currencyName": "Ukrainian Hryvnia",
+        "currencySymbol": "₴",
+        "id": "UAH"
+      },
+      "UZS": {
+        "currencyName": "Uzbekistani Som",
+        "currencySymbol": "лв",
+        "id": "UZS"
+      },
+      "TMT": {
+        "currencyName": "Turkmenistan Manat",
+        "id": "TMT"
+      },
+      "GBP": {
+        "currencyName": "British Pound",
+        "currencySymbol": "£",
+        "id": "GBP"
+      }
+      
+}`;
 
 @Injectable({
   providedIn: "root",
@@ -33,6 +190,8 @@ export class PlacesService {
   startPointCity: ICity;
   endPointCity: ICity;
   currentPaths: IFetchedPaths[];
+  currentCurrency = "EUR";
+  currentCurrencyRate = 1;
 
   pathsSubj$: Subject<any> = new BehaviorSubject<any>([]);
   cleanPathsSubj$: Subject<any> = new Subject<boolean>();
@@ -43,6 +202,10 @@ export class PlacesService {
     private router: Router,
     public translate: TranslateService
   ) {}
+
+  getCurrencyArray() {
+    return Object.values(JSON.parse(curArray));
+  }
 
   getAllCities() {
     this.citiesSub = this.httpSrv
@@ -149,7 +312,6 @@ export class PlacesService {
     paths: IFetchedPathDetails[]
   ): IFetchedPathDetails[] {
     const transformed = paths.map((path) => {
-    
       return {
         ...path,
         duration_minutes: this.transformDuration(
@@ -157,7 +319,9 @@ export class PlacesService {
         ),
         euro_price: this.transformPrice(path.euro_price.toString()),
         imgUrl: transportIconMap.get(path.transportation_type),
-        transportation_type: this.translate.instant(`TRANSPORTATION_TYPE.${path.transportation_type}`)
+        transportation_type: this.translate.instant(
+          `TRANSPORTATION_TYPE.${path.transportation_type}`
+        ),
       };
     });
 
@@ -165,16 +329,15 @@ export class PlacesService {
   }
 
   private transformPath(path: IFetchedPaths): IFetchedPaths {
-    console.log("path", path );
+    console.log("path", path);
     const transformedPath = {
       ...path,
       duration_minutes: this.transformDuration(
-        path.duration_minutes.toString(),
-      
+        path.duration_minutes.toString()
       ),
       euro_price: this.transformPrice(path.euro_price.toString()),
       direct_paths: this.transformPathDetails(path.direct_paths),
-      imgUrl: iconMap.get(path.routeType), 
+      imgUrl: iconMap.get(path.routeType),
       routeType: this.translate.instant(`ROUT_TYPE.${path.routeType}`),
     };
     return transformedPath;
@@ -192,10 +355,13 @@ export class PlacesService {
     return duration;
   }
 
-  private transformPrice(price: string) {
+  private transformPrice(price: string): any {
     const euro = Math.floor(+price);
+    const pr = euro * this.currentCurrencyRate;
     const cent = Math.floor(+price - euro) * 10;
-    return price;
+    console.info("pr", pr);
+
+    return pr;
   }
 
   private getCitiesAutocomplete(str: string): Observable<ICity[]> {
@@ -218,5 +384,17 @@ export class PlacesService {
       })
       .slice(0, 10);
     return of(sortedList);
+  }
+
+  public getCurrencyRate(cur: string, sum: number) {
+
+  const curName =cur;
+
+    const id = this.getCurrencyArray().filter(
+      (cur) => cur["currencyName"] == curName)[0]['id'];
+      this.currentCurrency = id;
+    this.httpSrv.getCurencyRate(id).subscribe((res) => {
+      this.currentCurrencyRate = +Object.values(res)[0];
+    });
   }
 }

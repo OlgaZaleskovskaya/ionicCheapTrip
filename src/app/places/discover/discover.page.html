@@ -26,9 +26,9 @@
     <ion-item class="select" lines="none">
     <!--   <ion-icon name="checkbox-outline" slot="start"></ion-icon>
        <ion-label>{{'SelectLanguage' | translate}}</ion-label>  -->
-      <ion-select value="usd" class="select" interface="popover" (ionChange)="onSelectLang($event)">
-        <ion-select-option value="usd">USD</ion-select-option>
-        <ion-select-option value="euro">EURO</ion-select-option>
+      <ion-select value="Euro" class="select" interface="popover" (ionChange)="onSelectCurrency($event)">
+        <ion-select-option *ngFor="let cur of currencyArr" [value]="cur">{{cur}}</ion-select-option>
+     
       </ion-select>
     </ion-item>
   </ion-buttons>

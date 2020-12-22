@@ -36,6 +36,10 @@ export class DiscoverPage implements OnInit, OnDestroy {
   startPointCity: ICity = { id: -1, name: "" };
   endPointCity: ICity = { id: -1, name: "" };
 
+  currencyArr: any;
+  currentCurrency: string;
+
+
   constructor(
     private placesSrv: PlacesService,
     private navCtrl: NavController,
@@ -48,6 +52,10 @@ export class DiscoverPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     const lang = this.translate.getBrowserLang();
+    this.currencyArr = this.placesSrv.getCurrencyArray();
+    this.currencyArr= this.currencyArr.map(res => res['currencyName'])
+  
+    this.currentCurrency = this.placesSrv.currentCurrency;
 
     if (lang == "ru") {
       this.translate.use("ru");
@@ -149,5 +157,10 @@ export class DiscoverPage implements OnInit, OnDestroy {
 
   onSelectLang(lang: any) {
     this.translate.use(lang.detail.value);
+  }
+  onSelectCurrency(event: any) {
+    const cur = event["detail"]["value"];
+   console.info("currence", cur);
+    this.placesSrv.getCurrencyRate(cur, 125);
   }
 }

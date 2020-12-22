@@ -11,15 +11,14 @@ export class ContactPage implements OnInit {
     private callNumber: CallNumber,
     private emailComposer: EmailComposer
   ) {}
-  ngOnInit() {
+  ngOnInit() {}
+  onCallRoman() {
     this.callNumber
       .callNumber("+972-54-5779239", true)
       .then((res) => console.log("Launched dialer!", res))
       .catch((err) => console.log("Error launching dialer", err));
   }
-
   sendMailTo(address: string) {
- 
     this.emailComposer.open({
       to: address,
     });

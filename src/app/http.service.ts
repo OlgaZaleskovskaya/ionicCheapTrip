@@ -22,4 +22,10 @@ export class HttpService {
     const url = `${this.URL}/routes?from=${startPointId}&to=${endPointId}`;
     return this.http.get(url, { observe: "response" });
   }
+
+ getCurencyRate(cur: string): Observable<any>{
+
+    const curUrl = `https://free.currconv.com/api/v7/convert?q=EUR_${cur}&compact=ultra&apiKey=9a257b81e7e1e64b3982`;
+   return this.http.get(curUrl);
+  }
 }

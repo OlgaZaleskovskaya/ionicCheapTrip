@@ -15,6 +15,7 @@ export class DetailsPage implements OnInit {
   endPointCityName: string;
   startPointCityName: string;
   @Input() ways: Array<any>;
+  @Input() currency: string;
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController,
@@ -22,7 +23,7 @@ export class DetailsPage implements OnInit {
   ) {}
 
   ngOnInit() {
- 
+ console.info("detail", this.currency);
     this.startPointCityName = this.placesSrv.startPointCity.name;
     this.endPointCityName = this.placesSrv.endPointCity.name;
    /*  this.route.paramMap.subscribe((paramMap) => {

@@ -8,18 +8,21 @@
 </ion-header>
 
 <ion-content fullscreen>
+  <h1>just test2</h1>
   <ion-list>
+    <h1>just test3</h1>
 
-
-    <ion-item>
+    <ion-item class="padding">
       <ion-avatar slot="start">
+       <h1>just test4</h1>
         <img src="../../assets/images/Roman.jpg">
       </ion-avatar>
       <ion-label>
-        <h2>{{'CONTACT.ROMAN.name' | translate}} {{'CONTACT.ROMAN.familyName' | translate}}</h2>
-        <h3>  {{'CONTACT.ROMAN.position' | translate}}</h3>
-        <ion-button (click)="sendMailTo('+972-54-5779239')">+972-54-5779239</ion-button>
-        <p (click)="sendMailTo('roman.mantelmakher@gmail.com')">roman.mantelmakher@gmail.com</p>
+        <h1>just test5</h1>
+        <h2 class="selectable">{{'CONTACT.ROMAN.name' | translate}} {{'CONTACT.ROMAN.familyName' | translate}}</h2>
+        <h3 class="selectable">  {{'CONTACT.ROMAN.position' | translate}}</h3>
+        <ion-button class="selectable" (click)="onCallRoman()">+972-54-5779239</ion-button>
+        <p class="selectable" (click)="sendMailTo('roman.mantelmakher@gmail.com')">roman.mantelmakher@gmail.com</p>
       </ion-label>
     </ion-item>
   </ion-list>

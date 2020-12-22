@@ -15,6 +15,7 @@ export class OfferPage implements OnInit {
   startPointCity: ICity;
   endPointCity: ICity;
   isLoading: boolean;
+  currentCurrency: string;
 
   constructor(
     private navCtrl: NavController,
@@ -23,6 +24,8 @@ export class OfferPage implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
+    this.currentCurrency = this.placesSrv.currentCurrency;
+
     this.paths = this.placesSrv.pathsSubj$.subscribe((res) => {
       this.startPointCity = this.placesSrv.startPointCity;
       this.endPointCity = this.placesSrv.endPointCity;
