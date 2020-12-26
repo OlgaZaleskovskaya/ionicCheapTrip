@@ -197,7 +197,11 @@ export class PlacesService {
 
   pathsSubj$: Subject<any> = new BehaviorSubject<any>([]);
   cleanPathsSubj$: Subject<any> = new Subject<boolean>();
-  currencyChanged$ = new Subject<{ name: string; rate: number; previousRate: number}>();
+  currencyChanged$ = new Subject<{
+    name: string;
+    rate: number;
+    previousRate: number;
+  }>();
 
   constructor(
     private httpSrv: HttpService,
@@ -213,7 +217,11 @@ export class PlacesService {
   getAllCities() {
     this.citiesSub = this.httpSrv
       .getCities()
-      .subscribe((cities) => (this.allCities = cities as ICity[]));
+      .subscribe((cities) => (this.allCities = cities as ICity[])),
+      (_error) => {
+        this.errorHandler("SLEEPING_SERVER");
+        this.pathsSubj$.next([]);
+      };
   }
 
   getStartPointAutocomplete(str: string): Observable<ICity[]> {
@@ -363,7 +371,7 @@ export class PlacesService {
   private transformPrice(price: string): number {
     const euro = Math.floor(+price);
     const pr = euro * this.currentCurrencyRate;
-    const cent = Math.floor(+price - euro) * 10;
+
     return +pr;
   }
 
@@ -390,23 +398,23 @@ export class PlacesService {
   }
 
   public getCurrencyRate(cur: string, recalculate: boolean) {
-    /*  const curName = cur;
-    const id = this.getCurrencyArray().filter(
-      (cur) => cur["currencyName"] == curName
-    )[0]["id"];*/
     this.currentCurrency = cur;
     this.httpSrv.getCurencyRate(cur).subscribe((res) => {
-const previousCurrencyRate = this.currentCurrencyRate;
+      const previousCurrencyRate = this.currentCurrencyRate;
       this.currentCurrencyRate = +Object.values(res)[0];
-      
+
       if (recalculate) {
         this.currencyChanged$.next({
           name: this.currentCurrency,
           rate: this.currentCurrencyRate,
-          previousRate: previousCurrencyRate
+          previousRate: previousCurrencyRate,
         });
       }
-    });
+    }),
+    (_error) => {
+      this.errorHandler("SLEEPING_SERVER");
+      this.pathsSubj$.next([]);
+    };
   }
 
   public setLanguage(lang: string, changed: boolean) {
