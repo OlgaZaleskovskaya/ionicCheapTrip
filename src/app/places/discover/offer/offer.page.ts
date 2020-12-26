@@ -12,6 +12,7 @@ import { PlacesService } from "../../places.service";
 export class OfferPage implements OnInit {
   routs: Array<any>;
   paths: Subscription;
+  currencyChanged: Subscription;
   startPointCity: ICity;
   endPointCity: ICity;
   isLoading: boolean;
@@ -25,6 +26,12 @@ export class OfferPage implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.currentCurrency = this.placesSrv.currentCurrency;
+    this.currencyChanged = this.placesSrv.currencyChanged$.subscribe(
+      (res: { name: string; rate: number; previousRate: number }) => {
+        this.currentCurrency = res.name;
+        this.routs = this.recalculatePrice(res.rate, res.previousRate);
+      }
+    );
 
     this.paths = this.placesSrv.pathsSubj$.subscribe((res) => {
       this.startPointCity = this.placesSrv.startPointCity;
@@ -55,11 +62,24 @@ export class OfferPage implements OnInit {
   }
 
   private getTransportTypes(rout: { direct_paths: Array<any> }): any {
-  
-    
-    const transportIcons = rout.direct_paths.map((r : {imgUrl: string}) => {
+    const transportIcons = rout.direct_paths.map((r: { imgUrl: string }) => {
       return r.imgUrl;
-    }); 
+    });
     return transportIcons;
+  }
+
+  private recalculatePrice(rate: number, previousRate: number): Array<any> {
+    return this.routs.map((rout) => {
+      return {
+        ...rout,
+        euro_price: rout.euro_price * (rate / previousRate),
+        direct_paths: rout.direct_paths.map((path) => {
+          return {
+            ...path,
+            euro_price: path.euro_price * (rate / previousRate),
+          };
+        }),
+      };
+    });
   }
 }

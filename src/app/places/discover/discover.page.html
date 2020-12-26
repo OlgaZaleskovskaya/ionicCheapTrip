@@ -20,12 +20,12 @@
       [ngStyle]="{'padding-right':'7px'}">CheapTrip.</span>{{'DISCOVER.MainSlogan' | translate }}</p>
 
 </ion-toolbar>
-
+<app-tools [isHidden]="false"></app-tools>
+<!-- 
 <ion-toolbar translucent>
   <ion-buttons class="select" slot="start">
     <ion-item class="select" lines="none">
-    <!--   <ion-icon name="checkbox-outline" slot="start"></ion-icon>
-       <ion-label>{{'SelectLanguage' | translate}}</ion-label>  -->
+   
       <ion-select value="Euro" class="select" interface="popover" (ionChange)="onSelectCurrency($event)">
         <ion-select-option *ngFor="let cur of currencyArr" [value]="cur">{{cur}}</ion-select-option>
      
@@ -34,8 +34,7 @@
   </ion-buttons>
   <ion-buttons class="select" slot="end">
     <ion-item class="select" lines="none">
-       <!-- <ion-icon name="checkbox-outline" slot="start"></ion-icon>
-     <ion-label>{{'SelectLanguage' | translate}}</ion-label>  -->
+     
       <ion-select [value]="language" class="select" interface="popover" (ionChange)="onSelectLang($event)">
         <ion-select-option value="en">En</ion-select-option>
         <ion-select-option value="ru">Ru</ion-select-option>
@@ -43,7 +42,7 @@
     </ion-item>
   </ion-buttons>
 
-</ion-toolbar>
+</ion-toolbar> -->
 
 <ion-content>
   <ion-card>

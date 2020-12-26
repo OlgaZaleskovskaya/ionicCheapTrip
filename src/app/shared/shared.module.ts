@@ -8,13 +8,16 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { MapModalComponent } from "./map-modal/map-modal.component";
 import { LocationPickerComponent } from "./pickers/location-picker/location-picker.component";
+import { ToolsComponent } from '../tools/tools.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [LocationPickerComponent, MapModalComponent],
+  declarations: [LocationPickerComponent, MapModalComponent, ToolsComponent],
   imports: [
     CommonModule,
     IonicModule,
     MatExpansionModule,
+    RouterModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -23,7 +26,7 @@ import { LocationPickerComponent } from "./pickers/location-picker/location-pick
       },
     }),
   ],
-  exports: [LocationPickerComponent, MapModalComponent, TranslateModule],
+  exports: [LocationPickerComponent, MapModalComponent, TranslateModule, ToolsComponent],
   entryComponents: [MapModalComponent],
 })
 export class SharedModule {}

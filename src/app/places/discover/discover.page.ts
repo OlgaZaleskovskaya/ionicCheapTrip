@@ -30,14 +30,14 @@ export class DiscoverPage implements OnInit, OnDestroy {
   @ViewChild("ionInputEndElRef", { read: ElementRef })
   ionInputEndElRef: ElementRef;
 
-  language: string = "en";
+  
   ignoreNextStartPointChange: boolean = false;
   ignoreNextEndPointChange: boolean = false;
   startPointCity: ICity = { id: -1, name: "" };
   endPointCity: ICity = { id: -1, name: "" };
 
   currencyArr: any;
-  currentCurrency: string;
+  currentCurrency: string;language: string = "en";
 
 
   constructor(
@@ -154,13 +154,13 @@ export class DiscoverPage implements OnInit, OnDestroy {
   toSearchPage() {
     this.navCtrl.navigateBack("/places/tabs/discover");
   }
-
-  onSelectLang(lang: any) {
+ 
+ onSelectLang(lang: any) {
     this.translate.use(lang.detail.value);
   }
   onSelectCurrency(event: any) {
     const cur = event["detail"]["value"];
-   console.info("currence", cur);
-    this.placesSrv.getCurrencyRate(cur, 125);
+  
+    this.placesSrv.getCurrencyRate(cur, true);
   }
 }

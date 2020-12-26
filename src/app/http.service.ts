@@ -24,8 +24,9 @@ export class HttpService {
   }
 
  getCurencyRate(cur: string): Observable<any>{
+   console.log('cur', cur);
 
-    const curUrl = `https://free.currconv.com/api/v7/convert?q=EUR_${cur}&compact=ultra&apiKey=9a257b81e7e1e64b3982`;
+    const curUrl = `https://free.currconv.com/api/v7/convert?q=EUR_${cur}&compact=ultra&apiKey=31d8c7a521820803e1aa`;
    return this.http.get(curUrl);
   }
 }

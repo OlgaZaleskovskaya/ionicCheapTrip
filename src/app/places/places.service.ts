@@ -192,9 +192,12 @@ export class PlacesService {
   currentPaths: IFetchedPaths[];
   currentCurrency = "EUR";
   currentCurrencyRate = 1;
+  currentLanguage: string;
+  languageChanged = false;
 
   pathsSubj$: Subject<any> = new BehaviorSubject<any>([]);
   cleanPathsSubj$: Subject<any> = new Subject<boolean>();
+  currencyChanged$ = new Subject<{ name: string; rate: number; previousRate: number}>();
 
   constructor(
     private httpSrv: HttpService,
@@ -204,7 +207,7 @@ export class PlacesService {
   ) {}
 
   getCurrencyArray() {
-    return Object.values(JSON.parse(curArray));
+    return Object.keys(JSON.parse(curArray));
   }
 
   getAllCities() {
@@ -249,7 +252,6 @@ export class PlacesService {
       .pipe(
         map((data) => {
           let paths = data.body as IFetchedPaths[];
-
           for (let i = 1; i <= paths.length - 1; i++) {
             if (
               paths[0].duration_minutes === paths[i].duration_minutes &&
@@ -263,9 +265,13 @@ export class PlacesService {
           const transformedPaths = pathsArr.map((path: IFetchedPaths) => {
             return this.transformPath(path);
           });
-          this.currentPaths = transformedPaths;
 
-          return transformedPaths;
+          const sortedPaths = transformedPaths.sort(
+            (a, b) => +a.euro_price - +b.euro_price
+          );
+          this.currentPaths = sortedPaths;
+
+          return sortedPaths;
         })
       )
       .subscribe((paths) => {
@@ -285,7 +291,7 @@ export class PlacesService {
       };
   }
 
-  getPathDetail(type: string): IFetchedPaths {
+  private getPathDetail(type: string): IFetchedPaths {
     return this.currentPaths.find((p) => p.routeType === type);
   }
 
@@ -329,7 +335,6 @@ export class PlacesService {
   }
 
   private transformPath(path: IFetchedPaths): IFetchedPaths {
-    console.log("path", path);
     const transformedPath = {
       ...path,
       duration_minutes: this.transformDuration(
@@ -355,13 +360,11 @@ export class PlacesService {
     return duration;
   }
 
-  private transformPrice(price: string): any {
+  private transformPrice(price: string): number {
     const euro = Math.floor(+price);
     const pr = euro * this.currentCurrencyRate;
     const cent = Math.floor(+price - euro) * 10;
-    console.info("pr", pr);
-
-    return pr;
+    return +pr;
   }
 
   private getCitiesAutocomplete(str: string): Observable<ICity[]> {
@@ -386,15 +389,28 @@ export class PlacesService {
     return of(sortedList);
   }
 
-  public getCurrencyRate(cur: string, sum: number) {
-
-  const curName =cur;
-
+  public getCurrencyRate(cur: string, recalculate: boolean) {
+    /*  const curName = cur;
     const id = this.getCurrencyArray().filter(
-      (cur) => cur["currencyName"] == curName)[0]['id'];
-      this.currentCurrency = id;
-    this.httpSrv.getCurencyRate(id).subscribe((res) => {
+      (cur) => cur["currencyName"] == curName
+    )[0]["id"];*/
+    this.currentCurrency = cur;
+    this.httpSrv.getCurencyRate(cur).subscribe((res) => {
+const previousCurrencyRate = this.currentCurrencyRate;
       this.currentCurrencyRate = +Object.values(res)[0];
+      
+      if (recalculate) {
+        this.currencyChanged$.next({
+          name: this.currentCurrency,
+          rate: this.currentCurrencyRate,
+          previousRate: previousCurrencyRate
+        });
+      }
     });
+  }
+
+  public setLanguage(lang: string, changed: boolean) {
+    this.currentLanguage = lang;
+    this.languageChanged = changed;
   }
 }
