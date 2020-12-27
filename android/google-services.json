@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1040307758612",
+    "project_id": "cheaptrip-6dda0",
+    "storage_bucket": "cheaptrip-6dda0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040307758612:android:48d38ec365290fe2dfe901",
+        "android_client_info": {
+          "package_name": "com.travelmore.cheaptrip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1040307758612-1ipcq847oqie767egptph0n9gf130uqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMXSk7VdnrcQCAxsCh-tx8UvKbAHr6rFc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1040307758612-1ipcq847oqie767egptph0n9gf130uqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
