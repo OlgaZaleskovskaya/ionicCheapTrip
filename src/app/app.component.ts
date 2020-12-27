@@ -12,11 +12,7 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 })
 export class AppComponent {
 
-  AppName:string;
-  PackageName:string;
-  VersionCode:string|number;
-  VersionNumber:string;
-
+  
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
