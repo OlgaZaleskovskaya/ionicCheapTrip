@@ -36,7 +36,7 @@ const routes: Routes = [
           {
             path: "",
             loadChildren: () =>
-              import("./offer/offer.module").then((m) => m.OfferPageModule),
+              import("./map/map.module").then((m) => m.MapPageModule),
           },
         ],
       },

@@ -313,7 +313,8 @@
 
       var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @ionic-native/status-bar/ngx */
-      "./node_modules/@ionic-native/status-bar/__ivy_ngcc__/ngx/index.js");
+      "./node_modules/@ionic-native/status-bar/__ivy_ngcc__/ngx/index.js"); //import { AppVersion } from '@ionic-native/app-version/ngx';
+
 
       var AppComponent = /*#__PURE__*/function () {
         function AppComponent(platform, splashScreen, statusBar) {

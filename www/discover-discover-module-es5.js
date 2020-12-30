@@ -78,7 +78,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | offer-offer-module */
-          [__webpack_require__.e("default~discover-offer-offer-module~offer-offer-module"), __webpack_require__.e("offer-offer-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("offer-offer-module")]).then(__webpack_require__.bind(null,
           /*! ./offer/offer.module */
           "./src/app/places/discover/offer/offer.module.ts")).then(function (m) {
             return m.OfferPageModule;

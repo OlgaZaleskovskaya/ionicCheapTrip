@@ -255,6 +255,7 @@ export class PlacesService {
   getPaths(startPoint: ICity, endPoint: ICity): void {
     this.startPointCity = startPoint;
     this.endPointCity = endPoint;
+  
     this.httpSrv
       .getPaths(startPoint.id, endPoint.id)
       .pipe(

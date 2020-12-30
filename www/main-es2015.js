@@ -365,6 +365,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+//import { AppVersion } from '@ionic-native/app-version/ngx';
 let AppComponent = class AppComponent {
     constructor(platform, splashScreen, statusBar) {
         this.platform = platform;

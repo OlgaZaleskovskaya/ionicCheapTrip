@@ -89,9 +89,9 @@
           }, {
             path: "offer",
             loadChildren: function loadChildren() {
-              return __webpack_require__.e(
+              return Promise.all(
               /*! import() | discover-offer-offer-module */
-              "default~discover-offer-offer-module~offer-offer-module").then(__webpack_require__.bind(null,
+              [__webpack_require__.e("common"), __webpack_require__.e("offer-offer-module")]).then(__webpack_require__.bind(null,
               /*! ./discover/offer/offer.module */
               "./src/app/places/discover/offer/offer.module.ts")).then(function (m) {
                 return m.OfferPageModule;
@@ -100,9 +100,9 @@
           }, {
             path: ":pathId",
             loadChildren: function loadChildren() {
-              return __webpack_require__.e(
+              return Promise.all(
               /*! import() | discover-details-details-module */
-              "discover-details-details-module").then(__webpack_require__.bind(null,
+              [__webpack_require__.e("common"), __webpack_require__.e("discover-details-details-module")]).then(__webpack_require__.bind(null,
               /*! ./discover/details/details.module */
               "./src/app/places/discover/details/details.module.ts")).then(function (m) {
                 return m.DetailsPageModule;
@@ -114,12 +114,12 @@
           children: [{
             path: "",
             loadChildren: function loadChildren() {
-              return Promise.all(
-              /*! import() | offer-offer-module */
-              [__webpack_require__.e("default~discover-offer-offer-module~offer-offer-module"), __webpack_require__.e("offer-offer-module")]).then(__webpack_require__.bind(null,
-              /*! ./offer/offer.module */
-              "./src/app/places/offer/offer.module.ts")).then(function (m) {
-                return m.OfferPageModule;
+              return __webpack_require__.e(
+              /*! import() | map-map-module */
+              "map-map-module").then(__webpack_require__.bind(null,
+              /*! ./map/map.module */
+              "./src/app/places/map/map.module.ts")).then(function (m) {
+                return m.MapPageModule;
               });
             }
           }]

@@ -38,7 +38,7 @@ const routes = [
     },
     {
         path: 'offer',
-        loadChildren: () => Promise.all(/*! import() | offer-offer-module */[__webpack_require__.e("default~discover-offer-offer-module~offer-offer-module"), __webpack_require__.e("offer-offer-module")]).then(__webpack_require__.bind(null, /*! ./offer/offer.module */ "./src/app/places/discover/offer/offer.module.ts")).then(m => m.OfferPageModule)
+        loadChildren: () => Promise.all(/*! import() | offer-offer-module */[__webpack_require__.e("common"), __webpack_require__.e("offer-offer-module")]).then(__webpack_require__.bind(null, /*! ./offer/offer.module */ "./src/app/places/discover/offer/offer.module.ts")).then(m => m.OfferPageModule)
     },
 ];
 let DiscoverPageRoutingModule = class DiscoverPageRoutingModule {
