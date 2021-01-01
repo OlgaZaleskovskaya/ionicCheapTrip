@@ -1415,9 +1415,13 @@ let PlacesService = class PlacesService {
         return Object.keys(JSON.parse(curArray));
     }
     getAllCities() {
+        console.log('get cities');
         this.citiesSub = this.httpSrv
             .getCities()
-            .subscribe((cities) => (this.allCities = cities)),
+            .subscribe((cities) => {
+            (this.allCities = cities);
+            console.log('cities,', cities);
+        }),
             (_error) => {
                 this.errorHandler("SLEEPING_SERVER");
                 this.pathsSubj$.next([]);

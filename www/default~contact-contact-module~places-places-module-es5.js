@@ -2315,8 +2315,10 @@
           value: function getAllCities() {
             var _this9 = this;
 
+            console.log('get cities');
             this.citiesSub = this.httpSrv.getCities().subscribe(function (cities) {
-              return _this9.allCities = cities;
+              _this9.allCities = cities;
+              console.log('cities,', cities);
             }), function (_error) {
               _this9.errorHandler("SLEEPING_SERVER");
 

@@ -215,9 +215,13 @@ export class PlacesService {
   }
 
   getAllCities() {
+    console.log('get cities');
     this.citiesSub = this.httpSrv
       .getCities()
-      .subscribe((cities) => (this.allCities = cities as ICity[])),
+      .subscribe((cities) => {
+        (this.allCities = cities as ICity[]);
+        console.log('cities,', cities);
+      }),
       (_error) => {
         this.errorHandler("SLEEPING_SERVER");
         this.pathsSubj$.next([]);
