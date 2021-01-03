@@ -9,6 +9,7 @@ import {
   ErrorType,
   ICity,
   IFetchedPathDetails,
+  IFetchedPathDetailsTransformed,
   IFetchedPaths,
   TransportationType,
   transportIconMap,
@@ -194,6 +195,8 @@ export class PlacesService {
   currentCurrencyRate = 1;
   currentLanguage: string;
   languageChanged = false;
+  routsCities: ICity[];
+  coordInfoRecieved = false;
 
   pathsSubj$: Subject<any> = new BehaviorSubject<any>([]);
   cleanPathsSubj$: Subject<any> = new Subject<boolean>();
@@ -215,17 +218,14 @@ export class PlacesService {
   }
 
   getAllCities() {
-    console.log('get cities');
-    this.citiesSub = this.httpSrv
-      .getCities()
-      .subscribe((cities) => {
-        (this.allCities = cities as ICity[]);
-        console.log('cities,', cities);
-      }),
+   /*  (this.citiesSub = this.httpSrv.getCities().subscribe((cities) => {
+      this.allCities = cities as ICity[];
+    })),
       (_error) => {
         this.errorHandler("SLEEPING_SERVER");
         this.pathsSubj$.next([]);
-      };
+      }; */
+      this.httpSrv.getCitiesInfo();
   }
 
   getStartPointAutocomplete(str: string): Observable<ICity[]> {
@@ -259,7 +259,6 @@ export class PlacesService {
   getPaths(startPoint: ICity, endPoint: ICity): void {
     this.startPointCity = startPoint;
     this.endPointCity = endPoint;
-  
     this.httpSrv
       .getPaths(startPoint.id, endPoint.id)
       .pipe(
@@ -329,10 +328,12 @@ export class PlacesService {
 
   private transformPathDetails(
     paths: IFetchedPathDetails[]
-  ): IFetchedPathDetails[] {
+  ): IFetchedPathDetailsTransformed [] {
     const transformed = paths.map((path) => {
       return {
         ...path,
+        cityFrom: this.allCities.filter(city => city.id === path.from_id)[0],
+        cityTo: this.allCities.filter(city => city.id === path.to_id)[0],
         duration_minutes: this.transformDuration(
           path.duration_minutes.toString()
         ),
@@ -416,14 +417,53 @@ export class PlacesService {
         });
       }
     }),
-    (_error) => {
-      this.errorHandler("SLEEPING_SERVER");
-      this.pathsSubj$.next([]);
-    };
+      (_error) => {
+        this.errorHandler("SLEEPING_SERVER");
+        this.pathsSubj$.next([]);
+      };
   }
 
   public setLanguage(lang: string, changed: boolean) {
     this.currentLanguage = lang;
     this.languageChanged = changed;
+  }
+
+
+  public transformPaths(){
+
+    
+  }
+  public getFullCityInformation(cityId: string): ICity {
+    if (!this.coordInfoRecieved) {
+      this.getCitiesInfo();
+    }
+    return this.allCities.filter((city) => city.id === +cityId)[0];
+  }
+
+  public getCitiesInfo() {
+    this.httpSrv.getCitiesInfo().subscribe((data) => {
+      const stringArray = data.toString().split("\r");
+   const objectArray = stringArray.map((str) => this.convertToObject(str));
+      this.allCities = objectArray;
+    });
+  }
+
+  private convertToObject(cityinfo: string): ICity {
+    const cityInfoArray = cityinfo.toString().split(";");
+    let city: ICity = {
+      id: +cityInfoArray[0],
+      name: cityInfoArray[1],
+      country: cityInfoArray[7],
+      coordinates: {
+        latitude: cityInfoArray[3]
+          ? +cityInfoArray[3].split(",").join(".")
+          : NaN,
+        longitude: cityInfoArray[4]
+          ? +cityInfoArray[4].split(",").join(".")
+          : NaN,
+      },
+    };
+
+    return city;
   }
 }

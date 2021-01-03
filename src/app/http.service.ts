@@ -4,8 +4,6 @@ import { Observable, of } from "rxjs";
 import { environment } from "../environments/environment";
 import { ICity } from "./places/places.model";
 
-
-
 @Injectable({
   providedIn: "root",
 })
@@ -23,10 +21,14 @@ export class HttpService {
     return this.http.get(url, { observe: "response" });
   }
 
- getCurencyRate(cur: string): Observable<any>{
-   console.log('cur', cur);
-
+  getCurencyRate(cur: string): Observable<any> {
     const curUrl = `https://free.currconv.com/api/v7/convert?q=EUR_${cur}&compact=ultra&apiKey=31d8c7a521820803e1aa`;
-   return this.http.get(curUrl);
+    return this.http.get(curUrl);
+  }
+
+  getCitiesInfo(): Observable<any>{
+    const csvUrl = "assets/data/coordinates.csv";
+
+    return this.http.get(csvUrl,  {responseType: 'text'});
   }
 }

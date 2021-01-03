@@ -54,10 +54,12 @@ export class OfferPage implements OnInit {
 
   private getCities(rout: { direct_paths: Array<any> }): any {
     const citiesSet = new Set<string>();
+
     rout.direct_paths.forEach((r: { from: string; to: string }) => {
       citiesSet.add(r.from);
       citiesSet.add(r.to);
     });
+
     return Array.from(citiesSet);
   }
 

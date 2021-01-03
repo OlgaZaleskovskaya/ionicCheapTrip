@@ -1,9 +1,14 @@
 export interface ICity {
   id: number;
   name: string;
+  country?: string;
+  coordinates?: {
+    latitude: number;
+    longitude: number;
+  };
 }
 export interface IFetchedPaths {
-  direct_paths: IFetchedPathDetails[];
+  direct_paths: IFetchedPathDetailsTransformed[];
   duration_minutes: string | number;
   euro_price: string | number;
   routeType: RouteType;
@@ -15,12 +20,18 @@ export interface IFetchedPathDetails {
   transportation_type: TransportationType | string;
   euro_price: string | number;
   duration_minutes: string | number;
-  from: string;
-  from_id: string | number;
-  to: string;
-  to_id: string | number;
+  from?: string ;
+  from_id?: string | number;
+  to?: string ;
+  to_id?: string | number;
   icon?: string;
   imgUrl?: string;
+}
+
+export interface IFetchedPathDetailsTransformed extends IFetchedPathDetails {
+cityFrom: ICity;
+cityTo:ICity;
+
 }
 
 export type TransportationType =
@@ -42,40 +53,39 @@ export type ErrorType =
   | "BRAWSER_NOT_SUPPORTED"
   | "LATIN_CHARACTERES";
 
- export enum Icons {
-    FLIGHT = `<span class="material-icons">
+export enum Icons {
+  FLIGHT = `<span class="material-icons">
     flight
     </span>`,
-    BUS = `<span class="material-icons">
+  BUS = `<span class="material-icons">
     directions_bus
     </span>`,
-    TRAIN = `<span class="material-icons">
+  TRAIN = `<span class="material-icons">
     directions_railway
     </span>`,
-    CAR_FERRY = `<span class="material-icons">
+  CAR_FERRY = `<span class="material-icons">
     directions_boat
     </span>`,
-    WALK = `<span class="material-icons">
+  WALK = `<span class="material-icons">
     directions_walk
     </span>`,
-    TOWN_CAR = `<span class="material-icons">
+  TOWN_CAR = `<span class="material-icons">
     directions_car
     </span>`,
-    TAXI = `<span class="material-icons">
+  TAXI = `<span class="material-icons">
     local_taxi
     </span>`,
-    SHUTTLE = `<span class="material-icons">
+  SHUTTLE = `<span class="material-icons">
     shuttle
     </span>`,
-    DRIVE_CAR = `<span class="material-icons">
+  DRIVE_CAR = `<span class="material-icons">
     directions_car
     </span>`,
-    RIDE_SHARE = `<span class="material-icons">
+  RIDE_SHARE = `<span class="material-icons">
     groups
     </span>`,
-
-  };
-export  const transportIconMap = new Map();
+}
+export const transportIconMap = new Map();
 
 transportIconMap.set("Bus", Icons.BUS);
 transportIconMap.set("Train", Icons.TRAIN);
@@ -87,4 +97,6 @@ transportIconMap.set("Drive Car", Icons.DRIVE_CAR);
 transportIconMap.set("Shuttle", Icons.SHUTTLE);
 transportIconMap.set("Car Ferry", Icons.CAR_FERRY);
 transportIconMap.set("Walk", Icons.WALK);
+
+
 

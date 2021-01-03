@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<ion-tabs>\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"discover\">\n      <ion-label>{{'DISCOVER.Discover' | translate}}</ion-label>\n      <ion-icon name=\"search\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button tab=\"multi\">\n      <ion-label>{{'DISCOVER.MultiCity' | translate}}</ion-label>\n      <ion-icon name=\"earth\"></ion-icon>\n    </ion-tab-button>\n  </ion-tab-bar>\n</ion-tabs>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\r\n<ion-tabs>\r\n  <ion-tab-bar slot=\"bottom\">\r\n    <ion-tab-button tab=\"discover\">\r\n      <ion-label>{{'DISCOVER.Discover' | translate}}</ion-label>\r\n      <ion-icon name=\"search\"></ion-icon>\r\n    </ion-tab-button>\r\n    <ion-tab-button tab=\"multi\">\r\n      <ion-label>{{'DISCOVER.MultiCity' | translate}}</ion-label>\r\n      <ion-icon name=\"earth\"></ion-icon>\r\n    </ion-tab-button>\r\n  </ion-tab-bar>\r\n</ion-tabs>\r\n\r\n");
 
 /***/ }),
 

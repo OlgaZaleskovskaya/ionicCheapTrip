@@ -132,7 +132,6 @@ export class DiscoverPage implements OnInit, OnDestroy {
   }
 
   onClearStartPoint() {
-    console.log("on clear start point");
     this.startPointCity = { id: -1, name: "" };
     this.ignoreNextStartPointChange = true;
     this.startPointCitiesAvailable = false;
