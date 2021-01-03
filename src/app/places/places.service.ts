@@ -429,10 +429,7 @@ export class PlacesService {
   }
 
 
-  public transformPaths(){
-
-    
-  }
+ 
   public getFullCityInformation(cityId: string): ICity {
     if (!this.coordInfoRecieved) {
       this.getCitiesInfo();
@@ -442,7 +439,7 @@ export class PlacesService {
 
   public getCitiesInfo() {
     this.httpSrv.getCitiesInfo().subscribe((data) => {
-      const stringArray = data.toString().split("\r");
+      const stringArray = data.toString().split("\n");
    const objectArray = stringArray.map((str) => this.convertToObject(str));
       this.allCities = objectArray;
     });
