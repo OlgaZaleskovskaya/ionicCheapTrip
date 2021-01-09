@@ -31,7 +31,7 @@ const routes: Routes = [
         ],
       },
       {
-        path: "multi",
+        path: "map",
         children: [
           {
             path: "",

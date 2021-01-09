@@ -7,8 +7,8 @@
     "MainMessage": "Discover the cheapest way  to get anywhere combining plane, train, bus and rideshare",
     "From": "From:",
     "To": "To:",
-    "Discover": "Discover",
-    "MultiCity": "MultiCity"
+    "Discover": "Search",
+    "Map": "Map"
   },
 
   "NameError": "I am sure you must have a name!",
@@ -25,7 +25,7 @@
     "Button": "Close"
   },
   "ERRORS:NO_RESULTS_FOR_SEARCH": {
-    "Header": " Unsupported!",
+    "Header": "Oh, No!",
     "Message": "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Try changing your request.",
     "Button": "Back"
   },
@@ -35,8 +35,8 @@
     "Button": "Close"
   },
   "ERRORS:LATIN_CHARACTERES": {
-    "Header": "Only Latin Characteres!",
-    "Message": "Sorry, the data we have accumulated is not enough to build a route between the indicated cities. Only Latin characteres are permitted.",
+    "Header": "Oh, No!",
+    "Message": "Sorry, only Latin characteres are allowed now.",
     "Button": "Close"
   },
   "CONTACT": {
@@ -48,7 +48,7 @@
     }
   },
   "HOME": {
-    "home": "home"
+    "home": "Home"
   },
   "ROUT_TYPE": {
     "Ground route": "Ground route",
@@ -62,7 +62,7 @@
     "Car Ferry": "Car Ferry",
     "Train": "Train",
     "Taxi": "Taxi",
-    "Shuttle": "jj",
+    "Shuttle": "Shuttle",
     "Town Car": "Town Car",
     "Car Drive": "Car drive",
     "Walk": "Walk"

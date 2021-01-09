@@ -1,11 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import OLMap from "ol/Map";
 import View from "ol/View";
+import Overlay from "ol/Overlay";
 
 import LineString from "ol/geom/LineString";
 import Feature from "ol/Feature";
 import Point from "ol/geom/Point";
 import { fromLonLat } from "ol/proj.js";
+import { transform } from "ol/proj";
+import { toStringHDMS } from "ol/coordinate.js";
+import { toLonLat } from "ol/proj.js";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import VectorSource from "ol/source/Vector";
 import { Icon, Style, Stroke } from "ol/style";
@@ -27,6 +31,9 @@ export class MapPage implements OnInit {
   vectorLayer;
   rasterLayer;
 
+  endPointsVectorLayer: VectorLayer;
+  lineVectorLayer: VectorLayer;
+
   map;
   startPointCity: string;
   endPointCity: string;
@@ -34,11 +41,17 @@ export class MapPage implements OnInit {
   endPoint: Feature;
   latitude: number;
   longitude: number;
-  //coordinates: Array<number[]>;
+
   startPointCoords: [number, number];
   endPointCoords: [number, number];
   points: ICity[];
   routs: Array<any>;
+  currentPath: any;
+  currentPaths: Array<{
+    transport: string;
+    price: string | number;
+    duration: string;
+  }>;
 
   constructor(
     private placesSrv: PlacesService,
@@ -46,40 +59,43 @@ export class MapPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.placesSrv.pathsSubj$.subscribe((res) => {
+      console.log("on subscribe", res);
+      this.routs = [...res];
+      const paths = this.routs.map((rout) => rout.direct_paths);
+      this.currentPath = paths[0];
+      console.log("on subscribe", this.currentPath);
+      console.log('this.endPointsVectorLayer',this.endPointsVectorLayer );
+      if (this.endPointsVectorLayer) {
+        console.log('this.endPointsVectorLayer')
+        this.endPointsVectorLayer.getSource().clear();
+      }
+      if (this.lineVectorLayer) {
+        this.lineVectorLayer.getSource().clear();
+      }
+
+      this.initializeMap();
+    });
+
     if (this.placesSrv.startPointCity !== undefined) {
       this.routs = [...this.placesSrv.currentPaths];
-      console.log("routs", this.routs);
-      const firstRout = this.routs[0].direct_paths;
-      console.log("rout", firstRout);
-      const mypoints = this.getCities(firstRout).map(
-        (point) => point.coordinates
-      );
-
-      // this.startPointCity = this.placesSrv.startPointCity.name;
-      //  this.endPointCity = this.placesSrv.endPointCity.name;
-
-      /*       const startPointCoords = [
-        coordinates.coord.get(this.startPointCity)[1],
-        coordinates.coord.get(this.startPointCity)[0],
-      ];
-      const endPointCoords = [
-        coordinates.coord.get(this.endPointCity)[1],
-        coordinates.coord.get(this.endPointCity)[0],
-      ]; */
-
-      this.initializeMap("mixed", mypoints);
+      const paths = this.routs.map((rout) => rout.direct_paths);
+      this.currentPath = paths[0];
+      this.initializeMap();
     } else {
       this.geolocation
         .getCurrentPosition()
         .then((resp) => {
-          const currentCoords = [resp.coords.longitude, resp.coords.latitude];
-
-          this.initializeMap("ff", [
-            {
-              latitude: resp.coords.latitude,
+          const homeCity: ICity = {
+            id: -1,
+            name: "home",
+            country: "",
+            coordinates: {
               longitude: resp.coords.longitude,
+              latitude: resp.coords.latitude,
             },
-          ]);
+          };
+          this.initializeMap(homeCity);
         })
         .catch((error) => {
           console.log("Error getting location", error);
@@ -87,73 +103,41 @@ export class MapPage implements OnInit {
     }
   }
 
-  initializeMap(
-    type: string,
-    points: Array<{ latitude: number; longitude: number }>
-  ) {
-    /*  this.startPoint = new Feature({
-      geometry: new Point(fromLonLat(start)),
+  private initializeMap(homeCity?: ICity) {
+    /* create overlay for popup */
+    const container = document.getElementById("popup");
+    const content = document.getElementById("popup-content");
+    const closer = document.getElementById("popup-closer");
+
+    const overlay = new Overlay({
+      element: container,
+      autoPan: true,
+      autoPanAnimation: {
+        duration: 250,
+      },
     });
+    /* end create overlay for popup */
 
-    this.endPoint = new Feature({
-      geometry: new Point(fromLonLat(end)),
-    }); */
-
-    const style = new Style({
-      image: new Icon({
-        color: "#ff3d00",
-        crossOrigin: "anonymous",
-        src: "../../../assets/icon/point.png",
-        imgSize: [20, 20],
-      }),
-    });
-
-    const markerArray = [];
-    const p = [...points];
-
-    p.forEach((point) => {
-      markerArray.push(
-        new Feature({
-          geometry: new Point(fromLonLat([point.longitude, point.latitude])),
-        })
-      );
-    });
-    markerArray.map((point) => point.setStyle(style));
-
-    //  this.startPoint.setStyle(style);
-    // this.endPoint.setStyle(style);
-
-    const endPointsVectorSource = new VectorSource({
-      /*     features: [this.startPoint, this.endPoint], */
-      features: markerArray,
-    });
-
-    const endPointsVectorLayer = new VectorLayer({
-      source: endPointsVectorSource,
-    });
+    const coordinates =
+      arguments.length > 0
+        ? [homeCity.coordinates.longitude, homeCity.coordinates.latitude]
+        : [
+            this.currentPath[0].cityFrom.coordinates.longitude,
+            this.currentPath[0].cityFrom.coordinates.latitude,
+          ];
 
     this.map = new OLMap({
       target: "map",
-      /*   layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-        this.vectorLayer,
-      ], */
+      overlays: [overlay],
       view: new View({
-        center: fromLonLat([p[0].longitude, p[0].latitude]),
+        center: fromLonLat(coordinates),
         zoom: 6,
         maxZoom: 10,
         minZoom: 1,
       }),
     });
 
-    const coordinates = [];
-    p.forEach((p) => coordinates.push([p.longitude, p.latitude]));
-
-    const lineVectorLayer = this.createLineStringLayer(coordinates);
-
-    /*   anotherlayer */
+    /*  create maplayers */
     const openStreetMapHumanitarian = new TileLayer({
       source: new OSM({
         url: "https://{a-c}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
@@ -174,10 +158,56 @@ export class MapPage implements OnInit {
     });
 
     const baseLayerGroup = this.createMainMapLayers();
-
     this.map.addLayer(baseLayerGroup);
-    this.map.addLayer(endPointsVectorLayer);
-    this.map.addLayer(lineVectorLayer);
+    /*  end create maplayers */
+
+    /* create Layers */
+    if (arguments.length > 0) {
+      this.endPointsVectorLayer = this.createPointsLayer([homeCity]);
+    } else {
+      this.endPointsVectorLayer = this.createPointsLayer(
+        this.getCities(this.currentPath)
+      );
+      this.lineVectorLayer = this.createLineStringLayer();
+      this.map.addLayer(this.lineVectorLayer);
+    }
+
+    //
+    /* end create Layers */
+
+    this.map.addLayer(this.endPointsVectorLayer);
+    //  this.map.addLayer(this.lineVectorLayer);
+
+    this.map.on("click", (evt) => {
+      let div = [];
+      this.map.forEachFeatureAtPixel(evt.pixel, (feature, _layer) => {
+        if (feature.values_.geometry instanceof Point) {
+          const coordinate = evt.coordinate;
+          const text = `${feature.values_.geometry.values_.city}, ${feature.values_.geometry.values_.country}`;
+          content.innerText = text;
+          overlay.setPosition(coordinate);
+        } else if (feature.values_.geometry instanceof LineString) {
+          const coordinate = evt.coordinate;
+          const f = feature.values_.geometry;
+          const currency = this.placesSrv.currentCurrency;
+          f.forEachSegment((seg1: [number, number], seg2: [number, number]) => {
+            div.push(this.getDeviation(evt.coordinate, seg1, seg2));
+          });
+          const minIndex = div.indexOf(Math.min.apply(null, div));
+          this.currentPath[minIndex];
+
+          const text = `${this.currentPath[minIndex].transportation_type},  ${this.currentPath[minIndex].duration_minutes}, ${this.currentPath[minIndex].euro_price}${currency}`;
+          content.innerText = text;
+          overlay.setPosition(coordinate);
+        }
+      });
+    });
+
+    closer.onclick = function () {
+      overlay.setPosition(undefined);
+      closer.blur();
+      return false;
+    };
   }
 
   private createMainMapLayers(): LayerGroup {
@@ -205,18 +235,60 @@ export class MapPage implements OnInit {
     });
   }
 
-  private createLineStringLayer(coordArr: Array<number[]>): VectorLayer {
-    let lineString = new LineString(coordArr);
+  private createPointsLayer(points: ICity[]): VectorLayer {
+    const style = new Style({
+      image: new Icon({
+        color: "#ff3d00",
+        crossOrigin: "anonymous",
+        src: "../../../assets/icon/point.png",
+        imgSize: [20, 20],
+      }),
+    });
+    const pointsArray = [];
+
+    points.forEach((p) => {
+      const pathPoint = new Point(
+        fromLonLat([p.coordinates.longitude, p.coordinates.latitude])
+      );
+      pathPoint.setProperties({ city: p.name, country: p.country }, true);
+
+      pointsArray.push(
+        new Feature({
+          geometry: pathPoint,
+        })
+      );
+    });
+
+    pointsArray.map((point) => point.setStyle(style));
+
+    const pointsVectorSource = new VectorSource({
+      features: pointsArray,
+    });
+
+    return new VectorLayer({
+      source: pointsVectorSource,
+    });
+  }
+
+  private createLineStringLayer(): VectorLayer {
+    const coordinates = [];
+    this.getCities(this.currentPath).forEach((p) => {
+      return coordinates.push([
+        p.coordinates.longitude,
+        p.coordinates.latitude,
+      ]);
+    });
+    let lineString = new LineString(coordinates);
     lineString.transform("EPSG:4326", "EPSG:3857");
 
-    const lineStringFeature = new Feature({
+    let lineStringFeature = new Feature({
       geometry: lineString,
       name: "Line",
     });
 
     const lineStyle = new Style({
       stroke: new Stroke({
-        color: "#607D8B",
+        color: "red",
         width: 2,
       }),
     });
@@ -231,15 +303,30 @@ export class MapPage implements OnInit {
     });
   }
 
-  getClickCoord() {
-    this.map.on("click", (event) => {
-      console.log(event.coordinate);
-    });
+  segmentChanged(event: any) {
+    this.currentPath = event.detail.value.direct_paths;
+
+    this.endPointsVectorLayer.getSource().clear();
+    this.lineVectorLayer.getSource().clear();
+
+    this.endPointsVectorLayer = this.createPointsLayer(
+      this.getCities(this.currentPath)
+    );
+    this.lineVectorLayer = this.createLineStringLayer();
+
+    this.map.addLayer(this.endPointsVectorLayer);
+    this.map.addLayer(this.lineVectorLayer);
   }
 
-  segmentChanged(event: any) {}
-
-  private getCities(paths: Array<{ cityFrom: ICity; cityTo: ICity }>): ICity[] {
+  private getCities(
+    paths: Array<{
+      cityFrom: ICity;
+      cityTo: ICity;
+      transportation_type: any;
+      euro_price: number;
+      duration_minutes: string;
+    }>
+  ): ICity[] {
     const citiesSet = new Set<string>();
     paths.forEach((rout) => {
       citiesSet.add(JSON.stringify(rout.cityFrom));
@@ -247,5 +334,27 @@ export class MapPage implements OnInit {
     });
 
     return Array.from(citiesSet).map((str) => JSON.parse(str));
+  }
+
+  private getDistance(p1: [number, number], p2: [number, number]): number {
+    const d = Math.sqrt(
+      Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2)
+    );
+    return d;
+  }
+
+  private getDeviation(
+    p: [number, number],
+    l1: [number, number],
+    l2: [number, number]
+  ): number {
+    const [x, y, x1, y1, x2, y2] = [p[0], p[1], l1[0], l1[1], l2[0], l2[1]];
+    const a = x2 - x1;
+    const b = y2 - y1;
+    const c = b / a;
+
+    const yProjection = (x - x1) * c + y1;
+
+    return this.getDistance([x, yProjection], [x, y]);
   }
 }

@@ -6,7 +6,15 @@ export interface ICity {
     latitude: number;
     longitude: number;
   };
+
 }
+
+export interface ICityForLine extends ICity {
+  transportation_type: string;
+  duration_minutes: string | number;
+  euro_price: string | number;
+}
+
 export interface IFetchedPaths {
   direct_paths: IFetchedPathDetailsTransformed[];
   duration_minutes: string | number;
