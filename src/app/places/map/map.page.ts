@@ -59,7 +59,7 @@ export class MapPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.placesSrv.pathsSubj$.subscribe((res) => {
+   /*  this.placesSrv.pathsSubj$.subscribe((res) => {
       console.log("on subscribe", res);
       this.routs = [...res];
       const paths = this.routs.map((rout) => rout.direct_paths);
@@ -75,7 +75,7 @@ export class MapPage implements OnInit {
       }
 
       this.initializeMap();
-    });
+    }); */
 
     if (this.placesSrv.startPointCity !== undefined) {
       this.routs = [...this.placesSrv.currentPaths];
