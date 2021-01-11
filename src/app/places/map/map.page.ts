@@ -178,7 +178,8 @@ export class MapPage implements OnInit {
     this.map.addLayer(this.endPointsVectorLayer);
     //  this.map.addLayer(this.lineVectorLayer);
 
-    this.map.on("click", (evt) => {
+  /*   this.map.on("click", (evt) => { */
+      this.map.on("pointermove", (evt) => {  
       let div = [];
       this.map.forEachFeatureAtPixel(evt.pixel, (feature, _layer) => {
         if (feature.values_.geometry instanceof Point) {
@@ -241,7 +242,7 @@ export class MapPage implements OnInit {
         color: "#ff3d00",
         crossOrigin: "anonymous",
         src: "../../../assets/icon/point.png",
-        imgSize: [20, 20],
+        imgSize: [30, 30],
       }),
     });
     const pointsArray = [];
@@ -288,18 +289,27 @@ export class MapPage implements OnInit {
 
     const lineStyle = new Style({
       stroke: new Stroke({
-        color: "red",
-        width: 2,
+        color: "orange",
+        width: 5,
       }),
     });
+
+    let styleFunction = this.lineStyleFunction;
 
     const lineVectorSource = new VectorSource({
       features: [lineStringFeature],
     });
 
+   
+
+
+      
+
+
     return new VectorLayer({
       source: lineVectorSource,
-      style: [lineStyle],
+     // style: 
+      style: styleFunction,
     });
   }
 
@@ -356,5 +366,38 @@ export class MapPage implements OnInit {
     const yProjection = (x - x1) * c + y1;
 
     return this.getDistance([x, yProjection], [x, y]);
+  }
+
+
+  private lineStyleFunction(feature: any){
+   let lineGeometry = feature.getGeometry();
+    let styles = [
+      // linestring
+      new Style({
+        stroke: new Stroke({
+          color: '#ffcc33',
+          width: 2,
+        }),
+      }) ];
+  
+    lineGeometry.forEachSegment(function (start, end) {
+      let dx = end[0] - start[0];
+      let dy = end[1] - start[1];
+      let rotation = Math.atan2(dy, dx);
+      // arrows
+      styles.push(
+        new Style({
+          geometry: new Point(end),
+          image: new Icon({
+            src: '../../../../src/assets/images/arrow.png',
+            anchor: [0.75, 0.5],
+            rotateWithView: true,
+            rotation: -rotation,
+          }),
+        })
+      );
+    });
+  
+    return styles;
   }
 }

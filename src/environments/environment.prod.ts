@@ -3,7 +3,7 @@ export const environment = {
   url1: 'http://3.18.167.68:8080',
   url2:  'http://18.158.89.230:8080',
   key: 'ionicdfdfdfgM',
-  firebaseConfig: {
+  /* firebaseConfig: {
     apiKey: "",
     authDomain: "",
     databaseURL: "",
@@ -12,6 +12,6 @@ export const environment = {
     messagingSenderId: "",
     appId: "",
     measurementId: ""
-  }
+  } */
 
 };
