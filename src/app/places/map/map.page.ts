@@ -389,10 +389,11 @@ export class MapPage implements OnInit {
         new Style({
           geometry: new Point(end),
           image: new Icon({
-            src: '../../../../src/assets/images/arrow.png',
+            src: '../../../assets/images/arrow.png',
             anchor: [0.75, 0.5],
             rotateWithView: true,
             rotation: -rotation,
+            imgSize: [30, 30]
           }),
         })
       );
