@@ -342,6 +342,7 @@ export class PlacesService {
         transportation_type: this.translate.instant(
           `TRANSPORTATION_TYPE.${path.transportation_type}`
         ),
+        transport: path.transportation_type
       };
     });
 

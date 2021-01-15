@@ -19,7 +19,9 @@ import { PlacesService } from "../places.service";
 import * as coordinates from "./coordinates";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import LayerGroup from "ol/layer/Group";
-import { ICity } from "../places.model";
+import { ICity,  transportIconMap} from "../places.model";
+
+  
 
 @Component({
   selector: "app-map",
@@ -196,9 +198,11 @@ export class MapPage implements OnInit {
           });
           const minIndex = div.indexOf(Math.min.apply(null, div));
           this.currentPath[minIndex];
+         const tr= transportIconMap.get(this.currentPath[minIndex].transport);
 
-          const text = `${this.currentPath[minIndex].transportation_type},  ${this.currentPath[minIndex].duration_minutes}, ${this.currentPath[minIndex].euro_price}${currency}`;
-          content.innerText = text;
+         console.log('icon', this.currentPath[minIndex].transport);
+          const text = `${tr},  ${this.currentPath[minIndex].duration_minutes}, ${this.currentPath[minIndex].euro_price}${currency}`;
+          content.innerHTML = text;
           overlay.setPosition(coordinate);
         }
       });
@@ -239,10 +243,10 @@ export class MapPage implements OnInit {
   private createPointsLayer(points: ICity[]): VectorLayer {
     const style = new Style({
       image: new Icon({
-        color: "#ff3d00",
+     //   color: "#ff3d00",
         crossOrigin: "anonymous",
-        src: "../../../assets/icon/point.png",
-        imgSize: [30, 30],
+        src: "../../../assets/icon/flag.png",
+        imgSize: [50, 50],
       }),
     });
     const pointsArray = [];
@@ -375,7 +379,7 @@ export class MapPage implements OnInit {
       // linestring
       new Style({
         stroke: new Stroke({
-          color: '#ffcc33',
+          color: ' #ff3d00',
           width: 2,
         }),
       }) ];
@@ -390,10 +394,10 @@ export class MapPage implements OnInit {
           geometry: new Point(end),
           image: new Icon({
             src: '../../../assets/images/arrow.png',
-            anchor: [0.75, 0.5],
+         //   anchor: [0.75, 0.5],
             rotateWithView: true,
             rotation: -rotation,
-            imgSize: [30, 30]
+            imgSize: [20, 20]
           }),
         })
       );
