@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import OLMap from "ol/Map";
 import View from "ol/View";
 import Overlay from "ol/Overlay";
@@ -19,14 +19,13 @@ import { PlacesService } from "../places.service";
 import * as coordinates from "./coordinates";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import LayerGroup from "ol/layer/Group";
-import { ICity,  transportIconMap} from "../places.model";
-
-  
+import { ICity, transportIconMap } from "../places.model";
 
 @Component({
   selector: "app-map",
   templateUrl: "./map.page.html",
   styleUrls: ["./map.page.scss"],
+  encapsulation: ViewEncapsulation.None,
 })
 export class MapPage implements OnInit {
   vectorSource;
@@ -61,7 +60,7 @@ export class MapPage implements OnInit {
   ) {}
 
   ngOnInit() {
-   /*  this.placesSrv.pathsSubj$.subscribe((res) => {
+    /*  this.placesSrv.pathsSubj$.subscribe((res) => {
       console.log("on subscribe", res);
       this.routs = [...res];
       const paths = this.routs.map((rout) => rout.direct_paths);
@@ -180,15 +179,23 @@ export class MapPage implements OnInit {
     this.map.addLayer(this.endPointsVectorLayer);
     //  this.map.addLayer(this.lineVectorLayer);
 
-  /*   this.map.on("click", (evt) => { */
-      this.map.on("pointermove", (evt) => {  
+    /*   this.map.on("click", (evt) => { */
+    this.map.on("pointermove", (evt) => {
       let div = [];
+
+      /* ------- */
+
       this.map.forEachFeatureAtPixel(evt.pixel, (feature, _layer) => {
         if (feature.values_.geometry instanceof Point) {
           const coordinate = evt.coordinate;
           const text = `${feature.values_.geometry.values_.city}, ${feature.values_.geometry.values_.country}`;
           content.innerText = text;
           overlay.setPosition(coordinate);
+          container.style.color = "#ff3d00";
+          container.style.fontSize = "12px";
+          container.style.fontStyle = "italic";
+          container.style.display = "flex";
+          container.style.alignItems = "flex-end";
         } else if (feature.values_.geometry instanceof LineString) {
           const coordinate = evt.coordinate;
           const f = feature.values_.geometry;
@@ -198,11 +205,18 @@ export class MapPage implements OnInit {
           });
           const minIndex = div.indexOf(Math.min.apply(null, div));
           this.currentPath[minIndex];
-         const tr= transportIconMap.get(this.currentPath[minIndex].transport);
+          const tr = transportIconMap.get(this.currentPath[minIndex].transport);
 
-         console.log('icon', this.currentPath[minIndex].transport);
-          const text = `${tr},  ${this.currentPath[minIndex].duration_minutes}, ${this.currentPath[minIndex].euro_price}${currency}`;
+          const text = `${tr}<br/>
+          <span>${this.currentPath[minIndex].cityFrom.name} >> </span>&nbsp;<span>${this.currentPath[minIndex].cityTo.name}</span>
+          <br>
+          <span> ${this.currentPath[minIndex].duration_minutes}</span>,&nbsp;
+           <span>${this.currentPath[minIndex].euro_price}${currency}</span>`;
           content.innerHTML = text;
+          container.style.color = "#ff3d00";
+          container.style.fontSize = "12px";
+          container.style.fontStyle = "italic";
+
           overlay.setPosition(coordinate);
         }
       });
@@ -243,7 +257,7 @@ export class MapPage implements OnInit {
   private createPointsLayer(points: ICity[]): VectorLayer {
     const style = new Style({
       image: new Icon({
-     //   color: "#ff3d00",
+        //   color: "#ff3d00",
         crossOrigin: "anonymous",
         src: "../../../assets/icon/flag.png",
         imgSize: [50, 50],
@@ -304,15 +318,9 @@ export class MapPage implements OnInit {
       features: [lineStringFeature],
     });
 
-   
-
-
-      
-
-
     return new VectorLayer({
       source: lineVectorSource,
-     // style: 
+      // style:
       style: styleFunction,
     });
   }
@@ -372,18 +380,18 @@ export class MapPage implements OnInit {
     return this.getDistance([x, yProjection], [x, y]);
   }
 
-
-  private lineStyleFunction(feature: any){
-   let lineGeometry = feature.getGeometry();
+  private lineStyleFunction(feature: any) {
+    let lineGeometry = feature.getGeometry();
     let styles = [
       // linestring
       new Style({
         stroke: new Stroke({
-          color: ' #ff3d00',
+          color: " #ff3d00",
           width: 2,
         }),
-      }) ];
-  
+      }),
+    ];
+
     lineGeometry.forEachSegment(function (start, end) {
       let dx = end[0] - start[0];
       let dy = end[1] - start[1];
@@ -393,16 +401,16 @@ export class MapPage implements OnInit {
         new Style({
           geometry: new Point(end),
           image: new Icon({
-            src: '../../../assets/images/arrow.png',
-         //   anchor: [0.75, 0.5],
+            src: "../../../assets/images/arrow.png",
+            //   anchor: [0.75, 0.5],
             rotateWithView: true,
             rotation: -rotation,
-            imgSize: [20, 20]
+            imgSize: [20, 20],
           }),
         })
       );
     });
-  
+
     return styles;
   }
 }

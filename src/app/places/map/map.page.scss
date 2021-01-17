@@ -47,4 +47,16 @@
     content: "✖";
   }
 
-  
+  .test{
+    color: #ff3d00;
+    position: fixed;
+    z-index: 100;
+    width: 30%;
+    background-color: white;
+    line-height: 40px;
+    top:130px;
+    left: 20px;
+    padding: 10px;
+    font-size: 12px;
+
+  }
